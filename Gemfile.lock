@@ -1,0 +1,32 @@
+PATH
+  remote: .
+  specs:
+    circleci-bundle-update-pr (0.0.1)
+      compare_linker
+      octokit (~> 3.8)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.3.7)
+    compare_linker (1.1.1)
+      httpclient
+      octokit
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
+    httpclient (2.6.0.1)
+    multipart-post (2.0.0)
+    octokit (3.8.0)
+      sawyer (~> 0.6.0, >= 0.5.3)
+    rake (10.4.2)
+    sawyer (0.6.0)
+      addressable (~> 2.3.5)
+      faraday (~> 0.8, < 0.10)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  bundler (~> 1.7)
+  circleci-bundle-update-pr!
+  rake (~> 10.0)
