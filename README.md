@@ -1,6 +1,6 @@
 # Circleci::Bundle::Update::Pr
 
-TODO: Write a gem description
+circleci-bundle-update-pr is a script for continues bundle update. Use in CircleCI
 
 ## Installation
 
@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    $ circleci-bundle-update-pr 'Git Usename' 'Git email address'
 
 ## Contributing
 
