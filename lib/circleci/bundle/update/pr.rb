@@ -20,6 +20,7 @@ module Circleci
         end
 
         def self.need?
+          return false unless ENV['CIRCLE_BRANCH'] == "master"
           system("bundle update")
           `git status -sb 2> /dev/null`.include?("Gemfile.lock")
         end
