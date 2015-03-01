@@ -1,4 +1,4 @@
-# Circleci::Bundle::Update::Pr
+# Circleci::Bundle::Update::Pr [![Gem Version][gem-badge]][gem-link]
 
 circleci-bundle-update-pr is a script for continues bundle update. Use in CircleCI
 
@@ -29,3 +29,6 @@ Or install it yourself as:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+[gem-badge]: https://badge.fury.io/rb/circleci-bundle-update-pr.svg
+[gem-link]: http://badge.fury.io/rb/circleci-bundle-update-pr
