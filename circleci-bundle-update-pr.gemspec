@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Takashi Masuda"]
   spec.email         = ["masutaka.net@gmail.com"]
   spec.summary       = %q{Create GitHub PullRequest of bundle update in CircleCI}
-  spec.description   = %q{circleci-bundle-update-pr is a script for continues bundle update. Use in CircleCI}
+  spec.description   = %q{A script for continues bundle update. Use in CircleCI}
   spec.homepage      = "https://github.com/masutaka/circleci-bundle-update-pr"
   spec.license       = "MIT"
 
