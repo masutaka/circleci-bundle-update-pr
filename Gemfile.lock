@@ -9,7 +9,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.8)
-    compare_linker (1.1.6)
+    compare_linker (1.1.7)
       httpclient
       octokit
     faraday (0.9.1)
