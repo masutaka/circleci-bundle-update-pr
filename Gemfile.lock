@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    circleci-bundle-update-pr (1.0.5)
+    circleci-bundle-update-pr (1.0.6)
       compare_linker
       octokit (~> 3.8)
 
@@ -9,7 +9,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.8)
-    compare_linker (1.1.9)
+    compare_linker (1.1.8)
       httpclient
       octokit
     faraday (0.9.1)
