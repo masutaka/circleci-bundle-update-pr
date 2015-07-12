@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    circleci-bundle-update-pr (1.0.6)
+    circleci-bundle-update-pr (1.0.7)
       compare_linker
       octokit (~> 3.8)
 
@@ -30,3 +30,6 @@ DEPENDENCIES
   bundler (~> 1.7)
   circleci-bundle-update-pr!
   rake (~> 10.0)
+
+BUNDLED WITH
+   1.10.5
