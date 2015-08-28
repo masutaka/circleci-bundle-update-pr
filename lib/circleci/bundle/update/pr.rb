@@ -13,7 +13,7 @@ module Circleci
           return unless need?
           repo_full_name = "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
           now = Time.now
-          branch = "bundle-update-#{now.strftime('%Y%m%d')}"
+          branch = "bundle-update-#{now.strftime('%Y%m%d%H%M%S')}"
           create_branch(git_username, git_email, branch)
           pull_request = create_pull_request(repo_full_name, branch, now)
           add_comment_of_compare_linker(repo_full_name, pull_request[:number])
