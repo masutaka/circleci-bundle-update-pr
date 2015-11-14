@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-    $ circleci-bundle-update-pr 'Git Usename' 'Git email address'
+    $ circleci-bundle-update-pr 'Git username' 'Git email address'
 
 ## Contributing
 
