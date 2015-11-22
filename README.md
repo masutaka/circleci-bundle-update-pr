@@ -22,6 +22,10 @@ Or install it yourself as:
 
     $ circleci-bundle-update-pr 'Git username' 'Git email address'
 
+By default, it works only on master branch, but you can also explicitly specify any branches rather than only master branch by adding them to the arguments.
+
+    $ circleci-bundle-update-pr 'Git username' 'Git email address' master develop topic
+
 ## Contributing
 
 1. Fork it ( https://github.com/masutaka/circleci-bundle-update-pr/fork )
