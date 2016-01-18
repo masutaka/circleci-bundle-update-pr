@@ -25,7 +25,9 @@ module Circleci
 
         def self.need?(git_branches)
           return false unless git_branches.include?(ENV['CIRCLE_BRANCH'])
-          system("bundle update")
+          unless system("bundle update")
+            raise "Unable to execute `bundle update`"
+          end
           `git status -sb 2> /dev/null`.include?("Gemfile.lock")
         end
         private_class_method :need?
