@@ -17,8 +17,7 @@ module Circleci
         git_email ||= "#{git_username}@users.noreply.github.com"
 
         create_branch(git_username, git_email, branch)
-        pull_request = create_pull_request(repo_full_name, branch, now)
-        add_comment_of_compare_linker(repo_full_name, pull_request[:number])
+        create_pull_request(repo_full_name, branch, now)
       end
 
       def self.need?(git_branches)
@@ -46,21 +45,6 @@ module Circleci
         client.create_pull_request(repo_full_name, ENV['CIRCLE_BRANCH'], branch, title, body)
       end
       private_class_method :create_pull_request
-
-      def self.add_comment_of_compare_linker(repo_full_name, pr_number)
-        ENV["OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ACCESS_TOKEN"]
-        compare_linker = CompareLinker.new(repo_full_name, pr_number)
-        compare_linker.formatter = CompareLinker::Formatter::Markdown.new
-
-        comment = <<-EOC
-#{coare_linker.make_compare_links.to_a.join("\n")}
-
-Powed by [compare_linker](https://rubygems.org/gems/compare_linker)
-        EOC
-
-        compare_linker.add_comment(repo_full_name, pr_number, comment)
-      end
-      private_class_method :add_comment_of_compare_linker
 
       def self.client
         Octokit::Client.new(access_token: ENV["GITHUB_ACCESS_TOKEN"])
