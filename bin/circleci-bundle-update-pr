@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-require "circleci/bundle/update/pr"
-
-Circleci::Bundle::Update::Pr.create_if_needed(git_username: ARGV.shift, git_email: ARGV.shift, git_branches: ARGV.empty? ? ["master"] : ARGV)
