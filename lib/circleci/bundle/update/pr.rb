@@ -25,8 +25,8 @@ module Circleci
 
         def self.need?(git_branches)
           return false unless git_branches.include?(ENV['CIRCLE_BRANCH'])
-          unless system("bundle update")
-            raise "Unable to execute `bundle update`"
+          unless system("bundle update && bundle update --ruby")
+            raise "Unable to execute `bundle update && bundle update --ruby`"
           end
           `git status -sb 2> /dev/null`.include?("Gemfile.lock")
         end
@@ -36,7 +36,7 @@ module Circleci
           system("git config user.name #{git_username}")
           system("git config user.email #{git_email}")
           system("git add Gemfile.lock")
-          system("git commit -m '$ bundle update'")
+          system("git commit -m '$ bundle update && bundle update --ruby'")
           system("git branch -M #{branch}")
           system("git push origin #{branch}")
         end
