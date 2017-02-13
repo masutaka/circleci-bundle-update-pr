@@ -42,8 +42,8 @@ deployment:
     commands:
       - |
         if [ "${BUNDLE_UPDATE}" ] ; then
-          gem update bundler --no-document
-          gem install circleci-bundle-update-pr
+          gem update bundler -N
+          gem install circleci-bundle-update-pr -N
           circleci-bundle-update-pr <username> <email>
         fi
 ```
