@@ -18,7 +18,7 @@ module Circleci
           git_username ||= client.user.login
           git_email ||= "#{git_username}@users.noreply.github.com"
 
-          create_branch(git_username, git_email, branch)
+          create_branch(git_username, git_email, branch, repo_full_name)
           pull_request = create_pull_request(repo_full_name, branch, now)
           add_comment_of_compare_linker(repo_full_name, pull_request[:number])
         end
@@ -32,13 +32,15 @@ module Circleci
         end
         private_class_method :need?
 
-        def self.create_branch(git_username, git_email, branch)
+        def self.create_branch(git_username, git_email, branch, repo_full_name)
+          remote = "https://#{ENV["GITHUB_ACCESS_TOKEN"]}@github.com/#{repo_full_name}"
+          system("git remote add github-url-with-token #{remote}")
           system("git config user.name #{git_username}")
           system("git config user.email #{git_email}")
           system("git add Gemfile.lock")
           system("git commit -m '$ bundle update && bundle update --ruby'")
           system("git branch -M #{branch}")
-          system("git push origin #{branch}")
+          system("git push github-url-with-token #{branch}")
         end
         private_class_method :create_branch
 
