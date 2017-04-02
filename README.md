@@ -1,4 +1,12 @@
-# Circleci::Bundle::Update::Pr [![Gem Version][gem-badge]][gem-link]
+# Circleci::Bundle::Update::Pr
+
+[![Build Status](https://img.shields.io/circleci/project/masutaka/circleci-bundle-update-pr/master.svg?style=flat-square)][circleci]
+[![License](https://img.shields.io/github/license/masutaka/circleci-bundle-update-pr.svg?style=flat-square)][license]
+[![Gem](https://img.shields.io/gem/v/circleci-bundle-update-pr.svg?style=flat-square)][gem-link]
+
+[circleci]: https://circleci.com/gh/masutaka/circleci-bundle-update-pr
+[license]: https://github.com/masutaka/circleci-bundle-update-pr/blob/master/LICENSE.txt
+[gem-link]: http://badge.fury.io/rb/circleci-bundle-update-pr
 
 circleci-bundle-update-pr is an automation script for continuous bundle update and for sending a pull request via CircleCI [Nightly builds](https://circleci.com/docs/nightly-builds/).
 
