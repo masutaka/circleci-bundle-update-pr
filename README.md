@@ -81,9 +81,9 @@ curl \
 NOTE: Please do not forget to replace `<username>/<reponame>/<circleci api token>` with yours.
 
 
-### Trigger nightly build via ci-bundle-update (recommended)
+### Trigger nightly build via ci-build-trigger (recommended)
 
-While you can trigger nightly builds by using whatever you want for sending requests to API, the most recommended way is to use "ci-bundle-update". Please see https://github.com/masutaka/ci-bundle-update for details.
+While you can trigger nightly builds by using whatever you want for sending requests to API, the most recommended way is to use "ci-build-trigger". Please see https://github.com/masutaka/ci-build-trigger for details.
 
 ## CLI command references
 
