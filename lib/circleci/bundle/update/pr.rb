@@ -40,7 +40,7 @@ module Circleci
           system("git add Gemfile.lock")
           system("git commit -m '$ bundle update && bundle update --ruby'")
           system("git branch -M #{branch}")
-          system("git push github-url-with-token #{branch}")
+          system("git push -q github-url-with-token #{branch}")
         end
         private_class_method :create_branch
 
