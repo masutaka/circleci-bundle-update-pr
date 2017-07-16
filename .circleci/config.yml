@@ -37,3 +37,9 @@ jobs:
             - /usr/local/bundle
   build:
     docker: *docker
+    branches:
+      only:
+        - master
+    steps:
+      - run:
+          command: /bin/true
