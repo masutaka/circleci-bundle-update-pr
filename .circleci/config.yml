@@ -1,8 +1,7 @@
 version: 2
 jobs:
-  build:
   continuous_bundle_update:
-    docker:
+    docker: &docker
       - image: ruby:2.4.1-alpine
     working_directory: /work
     branches:
@@ -36,3 +35,5 @@ jobs:
           key: gems-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
           paths:
             - /usr/local/bundle
+  build:
+    docker: *docker
