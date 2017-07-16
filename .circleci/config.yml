@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  continuous_bundle_update:
+    docker:
+      - image: ruby:2.4.1-alpine
+    working_directory: /work
+    branches:
+      only:
+        - master
+    steps:
+      - run:
+          name: Install System Dependencies
+          command: |
+            # See also https://circleci.com/docs/2.0/custom-images/#adding-required-and-custom-tools-or-files
+            apk add --update --no-cache git openssh-client tar gzip ca-certificates \
+              tzdata
+            gem install -N bundler
+      - run:
+          name: Set timezone to Asia/Tokyo
+          command: cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+      - checkout
+      - restore_cache:
+          name: Restore bundler cache
+          keys:
+            - gems-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+            - gems-{{ .Environment.COMMON_CACHE_KEY }}-
+      - run:
+          name: Setup requirements for continuous bundle update
+          command: gem install -N circleci-bundle-update-pr
+      - deploy:
+          name: Continuous bundle update
+          command: circleci-bundle-update-pr CircleCI circleci@example.com $CIRCLE_BRANCH
+      - save_cache:
+          name: Save bundler cache
+          key: gems-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - /usr/local/bundle
