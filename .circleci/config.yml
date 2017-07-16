@@ -1,5 +1,6 @@
 version: 2
 jobs:
+  build:
   continuous_bundle_update:
     docker:
       - image: ruby:2.4.1-alpine
