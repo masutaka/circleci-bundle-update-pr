@@ -3,7 +3,7 @@ PATH
   specs:
     circleci-bundle-update-pr (1.6.2)
       compare_linker
-      octokit (~> 4.7.0)
+      octokit
 
 GEM
   remote: https://rubygems.org/
@@ -29,9 +29,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.7)
+  bundler
   circleci-bundle-update-pr!
-  rake (~> 10.0)
+  rake
 
 BUNDLED WITH
    1.15.3
