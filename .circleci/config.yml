@@ -4,9 +4,6 @@ jobs:
     docker: &docker
       - image: ruby:2.4.1-alpine
     working_directory: /work
-    branches:
-      only:
-        - master
     steps:
       - run: &setup_requirements
           name: Install System Dependencies
@@ -37,9 +34,6 @@ jobs:
   continuous_bundle_update:
     docker: *docker
     working_directory: /work
-    branches:
-      only:
-        - master
     steps:
       - run: *setup_requirements
       - run: *set_timezone
@@ -54,13 +48,18 @@ jobs:
 
 workflows:
   version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
   nightly:
     triggers:
       - schedule:
           cron: "00 10 * * 5"
           filters:
             branches:
-              only:
-                - master
+              only: master
     jobs:
       - continuous_bundle_update
