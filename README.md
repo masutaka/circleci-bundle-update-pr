@@ -8,7 +8,7 @@
 [license]: https://github.com/masutaka/circleci-bundle-update-pr/blob/master/LICENSE.txt
 [gem-link]: http://badge.fury.io/rb/circleci-bundle-update-pr
 
-circleci-bundle-update-pr is an automation script for continuous bundle update and for sending a pull request using [`Scheduling a Workflow of CircleCI 2.0`](https://circleci.com/docs/2.0/workflows/#scheduling-a-workflow).
+`circleci-bundle-update-pr` is an automation script for continuous bundle update and for sending a pull request using [`Scheduling a Workflow of CircleCI 2.0`](https://circleci.com/docs/2.0/workflows/#scheduling-a-workflow).
 
 By requesting a nightly build to CircleCI with an environment variable configured in `circle.yml` or `.circleci/config.yml` to execute this script, bundle update is invoked, then commit changes and send a pull request to GitHub repository if there some changes exist.
 
@@ -90,7 +90,7 @@ workflows:
 
 NOTE: Please make sure you replace `<username>` and `<email>` with yours.
 
-circleci-bundle-update-pr regularly updates myself. See also [.circleci/config.yml](.circleci/config.yml).
+`circleci-bundle-update-pr` regularly updates myself. See also [.circleci/config.yml](.circleci/config.yml).
 
 ## CLI command references
 
