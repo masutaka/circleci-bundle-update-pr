@@ -113,6 +113,3 @@ $ circleci-bundle-update-pr <git username> <git email address> master develop to
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
-
-[gem-badge]: https://badge.fury.io/rb/circleci-bundle-update-pr.svg
-[gem-link]: http://badge.fury.io/rb/circleci-bundle-update-pr
