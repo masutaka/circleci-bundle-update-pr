@@ -19,7 +19,7 @@ GEM
     multipart-post (2.0.0)
     octokit (4.7.0)
       sawyer (~> 0.8.0, >= 0.5.3)
-    public_suffix (3.0.0)
+    public_suffix (3.0.1)
     rake (12.2.1)
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)
