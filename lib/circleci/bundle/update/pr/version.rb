@@ -2,7 +2,7 @@ module Circleci
   module Bundle
     module Update
       module Pr
-        VERSION = "1.8.2"
+        VERSION = "1.8.3"
       end
     end
   end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    circleci-bundle-update-pr (1.8.2)
+    circleci-bundle-update-pr (1.8.3)
       compare_linker
       octokit
 
@@ -28,6 +28,7 @@ GEM
 PLATFORMS
   ruby
   x86_64-darwin-16
+  x86_64-darwin-17
 
 DEPENDENCIES
   bundler
