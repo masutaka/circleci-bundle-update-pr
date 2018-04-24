@@ -52,10 +52,6 @@ module Circleci
 
         def self.add_comment_of_compare_linker(repo_full_name, pr_number)
           ENV["OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ACCESS_TOKEN"]
-          if enterprise?
-            ENV["ENTERPRISE_OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ENTERPRISE_ACCESS_TOKEN"]
-            ENV["ENTERPRISE_OCTOKIT_API_ENDPOINT"] = ENV["GITHUB_ENTERPRISE_API_ENDPOINT"]
-          end
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
 
@@ -72,8 +68,8 @@ Powered by [compare_linker](https://rubygems.org/gems/compare_linker)
 
         def self.client
           if enterprise?
-            Octokit::Client.new(access_token: ENV['GITHUB_ENTERPRISE_ACCESS_TOKEN'], 
-                                api_endpoint: ENV['GITHUB_ENTERPRISE_API_ENDPOINT'])
+            Octokit::Client.new(access_token: ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'],
+                                api_endpoint: ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT'])
           else
             Octokit::Client.new(access_token: ENV["GITHUB_ACCESS_TOKEN"])
           end
@@ -81,12 +77,12 @@ Powered by [compare_linker](https://rubygems.org/gems/compare_linker)
         private_class_method :client
 
         def self.enterprise?
-          !!ENV['GITHUB_ENTERPRISE_ACCESS_TOKEN']
+          !!ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN']
         end
         private_class_method :enterprise?
 
         def self.github_access_token
-          enterprise? ? ENV['GITHUB_ENTERPRISE_ACCESS_TOKEN'] : ENV['GITHUB_ACCESS_TOKEN']
+          enterprise? ? ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] : ENV['GITHUB_ACCESS_TOKEN']
         end
         private_class_method :github_access_token
 
@@ -103,11 +99,11 @@ Powered by [compare_linker](https://rubygems.org/gems/compare_linker)
           raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
           raise "$CIRCLE_PROJECT_REPONAME isn't set" unless ENV['CIRCLE_PROJECT_REPONAME']
           raise "$GITHUB_ACCESS_TOKEN isn't set" unless ENV['GITHUB_ACCESS_TOKEN']
-          if ENV['GITHUB_ENTERPRISE_ACCESS_TOKEN'] && !ENV['GITHUB_ENTERPRISE_API_ENDPOINT']
-            raise "$GITHUB_ENTERPRISE_API_ENDPOINT isn't set"
+          if ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] && !ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT']
+            raise "$ENTERPRISE_OCTOKIT_API_ENDPOINT isn't set"
           end
-          if !ENV['GITHUB_ENTERPRISE_ACCESS_TOKEN'] && ENV['GITHUB_ENTERPRISE_API_ENDPOINT']
-            raise "$GITHUB_ENTERPRISE_ACCESS_TOKEN isn't set"
+          if !ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] && ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT']
+            raise "$ENTERPRISE_OCTOKIT_ACCESS_TOKEN isn't set"
           end
         end
         private_class_method :raise_if_env_unvalid

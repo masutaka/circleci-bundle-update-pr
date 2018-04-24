@@ -34,8 +34,8 @@ GitHub personal access token is required for sending pull requests to your repos
 2. On CircleCI dashboard, go to your application's "Project Settings" -> "Environment Variables"
 3. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token  
     If use GitHub Enterprise  
-        `GITHUB_ENTERPRISE_ACCESS_TOKEN` with your GitHub Enterprise personal access token
-        `GITHUB_ENTERPRISE_API_ENDPOINT` with your GitHub Enterprise api endpoint (e.g. https://www.example.com/api/v3)
+        `ENTERPRISE_OCTOKIT_ACCESS_TOKEN` with your GitHub Enterprise personal access token
+        `ENTERPRISE_OCTOKIT_API_ENDPOINT` with your GitHub Enterprise api endpoint (e.g. https://www.example.com/api/v3)
 
 ### Configure circle.yml
 
