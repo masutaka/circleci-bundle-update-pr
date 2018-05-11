@@ -13,11 +13,11 @@ GEM
     compare_linker (1.4.0)
       httpclient
       octokit
-    faraday (0.15.0)
+    faraday (0.15.1)
       multipart-post (>= 1.2, < 3)
     httpclient (2.8.3)
     multipart-post (2.0.0)
-    octokit (4.8.0)
+    octokit (4.9.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     public_suffix (3.0.2)
     rake (12.3.1)
