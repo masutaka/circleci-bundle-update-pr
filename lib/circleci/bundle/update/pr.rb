@@ -7,7 +7,7 @@ module Circleci
     module Update
       module Pr
         def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"])
-          raise_if_env_unvalid
+          raise_if_env_unvalid!
           return unless need?(git_branches)
           repo_full_name = "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
           now = Time.now
@@ -95,7 +95,7 @@ Powered by [compare_linker](https://rubygems.org/gems/compare_linker)
         end
         private_class_method :github_host
 
-        def self.raise_if_env_unvalid
+        def self.raise_if_env_unvalid!
           raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
           raise "$CIRCLE_PROJECT_REPONAME isn't set" unless ENV['CIRCLE_PROJECT_REPONAME']
           raise "$GITHUB_ACCESS_TOKEN isn't set" unless ENV['GITHUB_ACCESS_TOKEN']
@@ -106,7 +106,7 @@ Powered by [compare_linker](https://rubygems.org/gems/compare_linker)
             raise "$ENTERPRISE_OCTOKIT_ACCESS_TOKEN isn't set"
           end
         end
-        private_class_method :raise_if_env_unvalid
+        private_class_method :raise_if_env_unvalid!
       end
     end
   end
