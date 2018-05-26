@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'octokit'
-  spec.add_dependency 'compare_linker'
+  spec.add_dependency 'compare_linker', ">= 1.4.0"
 
   spec.add_development_dependency "bundler"
   spec.add_development_dependency "rake"
