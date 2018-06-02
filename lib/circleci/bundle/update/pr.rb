@@ -87,10 +87,10 @@ Powered by [compare_linker](https://rubygems.org/gems/compare_linker)
         private_class_method :github_access_token
 
         def self.github_host
-          # A format like git@github.com:masutaka/compare_linker.git
-          return $1 if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{([^@]+?):}
           # A format like https://github.com/masutaka/circleci-bundle-update-pr.git
           return $1 if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{https://(.+?)/}
+          # A format like git@github.com:masutaka/compare_linker.git
+          return $1 if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{([^@]+?):}
           'github.com'
         end
         private_class_method :github_host
