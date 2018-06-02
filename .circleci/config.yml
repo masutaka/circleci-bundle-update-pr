@@ -31,6 +31,9 @@ jobs:
           key: gems-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
           paths:
             - /usr/local/bundle
+      - run:
+          name: Run RSpec
+          command: rspec
   continuous_bundle_update:
     docker: *docker
     working_directory: /work
@@ -50,10 +53,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - build:
-          filters:
-            branches:
-              only: master
+      - build
   nightly:
     triggers:
       - schedule:
