@@ -6,7 +6,7 @@ module Circleci
   module Bundle
     module Update
       module Pr
-        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"])
+        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"], assignees: [])
           raise_if_env_unvalid!
           return unless need?(git_branches)
           repo_full_name = "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
@@ -19,6 +19,7 @@ module Circleci
           create_branch(git_username, git_email, branch, repo_full_name)
           pull_request = create_pull_request(repo_full_name, branch, now)
           add_comment_of_compare_linker(repo_full_name, pull_request[:number])
+          add_assignees(repo_full_name, pull_request[:number], assignees) unless assignees.empty?
         end
 
         def self.need?(git_branches)
@@ -65,6 +66,11 @@ Powered by [compare_linker](https://rubygems.org/gems/compare_linker)
           compare_linker.add_comment(repo_full_name, pr_number, comment)
         end
         private_class_method :add_comment_of_compare_linker
+
+        def self.add_assignees(repo_full_name, pr_number, assignees)
+          client.add_assignees(repo_full_name, pr_number, assignees)
+        end
+        private_class_method :add_assignees
 
         def self.client
           if enterprise?
