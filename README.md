@@ -109,6 +109,12 @@ By default, it works only on master branch, but you can also explicitly specify 
 $ circleci-bundle-update-pr <git username> <git email address> master develop topic
 ```
 
+You can assign the PR to any users.
+
+```
+$ circleci-bundle-update-pr <git username> <git email address> -a alice,bob,carol
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/masutaka/circleci-bundle-update-pr/fork )
