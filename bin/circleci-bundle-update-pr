@@ -5,8 +5,8 @@ require 'optparse'
 
 opt = OptionParser.new
 options = { assignees: [] }
-opt.on('-a', '--assignees alice,bob,carol', Array, 'Assign the PR to them') { |v| options[:assignees] = v }
-opt.on('-r', '--reviewers alice,bob,carol', Array, 'Request PR review to them') { |v| options[:reviewers] = v }
+opt.on('-a', '--assignees alice,bob,carol', Array, 'Assign the PR to them') { |v| options[:assignees] = v.map(&:strip) }
+opt.on('-r', '--reviewers alice,bob,carol', Array, 'Request PR review to them') { |v| options[:reviewers] = v.map(&:strip) }
 opt.on('-l', '--labels "In Review, Update"', Array, 'Add labels to the PR') { |v| options[:labels] = v.map(&:strip) }
 opt.parse!(ARGV)
 
