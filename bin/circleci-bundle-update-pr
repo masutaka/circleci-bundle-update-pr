@@ -6,6 +6,7 @@ require 'optparse'
 opt = OptionParser.new
 options = { assignees: [] }
 opt.on('-a', '--assignees alice,bob,carol', Array, 'Assign the PR to them') { |v| options[:assignees] = v }
+opt.on('-r', '--reviewers alice,bob,carol', Array, 'Request PR review to them') { |v| options[:reviewers] = v }
 opt.parse!(ARGV)
 
 Circleci::Bundle::Update::Pr.create_if_needed(
@@ -13,4 +14,5 @@ Circleci::Bundle::Update::Pr.create_if_needed(
   git_email: ARGV.shift,
   git_branches: ARGV.empty? ? ["master"] : ARGV,
   assignees: options[:assignees],
+  reviewers: options[:reviewers],
 )
