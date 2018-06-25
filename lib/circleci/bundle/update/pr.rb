@@ -6,7 +6,8 @@ module Circleci
   module Bundle
     module Update
       module Pr
-        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"], assignees: [], reviewers: [], labels: [])
+        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"],
+                                  assignees: [], reviewers: [], labels: [])
           raise_if_env_unvalid!
           return unless need?(git_branches)
           repo_full_name = "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
