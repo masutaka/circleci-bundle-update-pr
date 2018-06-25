@@ -48,7 +48,6 @@ module Circleci
 
         def self.create_pull_request(repo_full_name, branch, now)
           title = "bundle update at #{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
-          build_url = URI.parse ENV['CIRCLE_BUILD_URL']
           client.create_pull_request(repo_full_name, ENV['CIRCLE_BRANCH'], branch, title)
         end
         private_class_method :create_pull_request
