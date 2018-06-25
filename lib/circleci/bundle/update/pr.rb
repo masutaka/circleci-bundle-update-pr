@@ -7,7 +7,7 @@ module Circleci
     module Update
       module Pr
         def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"],
-                                  assignees: [], reviewers: [], labels: [])
+                                  assignees: nil, reviewers: nil, labels: nil)
           raise_if_env_unvalid!
           return unless need?(git_branches)
           repo_full_name = "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
@@ -20,9 +20,9 @@ module Circleci
           create_branch(git_username, git_email, branch, repo_full_name)
           pull_request = create_pull_request(repo_full_name, branch, now)
           update_pull_request_body(repo_full_name, pull_request[:number])
-          add_assignees(repo_full_name, pull_request[:number], assignees) unless assignees.empty?
-          request_review(repo_full_name, pull_request[:number], reviewers) unless reviewers.empty?
-          add_labels(repo_full_name, pull_request[:number], labels) unless labels.empty?
+          add_assignees(repo_full_name, pull_request[:number], assignees) if assignees
+          request_review(repo_full_name, pull_request[:number], reviewers) if reviewers
+          add_labels(repo_full_name, pull_request[:number], labels) if labels
         end
 
         def self.need?(git_branches)
