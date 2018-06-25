@@ -109,10 +109,14 @@ By default, it works only on master branch, but you can also explicitly specify 
 $ circleci-bundle-update-pr <git username> <git email address> master develop topic
 ```
 
-You can assign the PR to any users.
+You can also add the following options:
 
 ```
-$ circleci-bundle-update-pr <git username> <git email address> -a alice,bob,carol
+$ circleci-bundle-update-pr -h
+Usage: circleci-bundle-update-pr [options]
+    -a, --assignees alice,bob,carol  Assign the PR to them
+    -r, --reviewers alice,bob,carol  Request PR review to them
+    -l, --labels "In Review, Update" Add labels to the PR
 ```
 
 ## Contributing
