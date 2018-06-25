@@ -6,7 +6,8 @@ module Circleci
   module Bundle
     module Update
       module Pr
-        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"], assignees: [])
+        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"],
+                                  assignees: [], reviewers: [], labels: [])
           raise_if_env_unvalid!
           return unless need?(git_branches)
           repo_full_name = "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
@@ -20,6 +21,8 @@ module Circleci
           pull_request = create_pull_request(repo_full_name, branch, now)
           add_comment_of_compare_linker(repo_full_name, pull_request[:number])
           add_assignees(repo_full_name, pull_request[:number], assignees) unless assignees.empty?
+          request_review(repo_full_name, pull_request[:number], reviewers) unless reviewers.empty?
+          add_labels(repo_full_name, pull_request[:number], labels) unless labels.empty?
         end
 
         def self.need?(git_branches)
@@ -71,6 +74,16 @@ Powered by [compare_linker](https://rubygems.org/gems/compare_linker)
           client.add_assignees(repo_full_name, pr_number, assignees)
         end
         private_class_method :add_assignees
+
+        def self.request_review(repo_full_name, pr_number, reviewers)
+          client.request_pull_request_review(repo_full_name, pr_number, reviewers)
+        end
+        private_class_method :request_review
+
+        def self.add_labels(repo_full_name, pr_number, labels)
+          client.add_labels_to_an_issue(repo_full_name, pr_number, labels)
+        end
+        private_class_method :add_labels
 
         def self.client
           if enterprise?
