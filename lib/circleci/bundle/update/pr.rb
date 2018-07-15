@@ -19,10 +19,10 @@ module Circleci
 
           create_branch(git_username, git_email, branch, repo_full_name)
           pull_request = create_pull_request(repo_full_name, branch, now)
+          add_labels(repo_full_name, pull_request[:number], labels) if labels
           update_pull_request_body(repo_full_name, pull_request[:number])
           add_assignees(repo_full_name, pull_request[:number], assignees) if assignees
           request_review(repo_full_name, pull_request[:number], reviewers) if reviewers
-          add_labels(repo_full_name, pull_request[:number], labels) if labels
         end
 
         def self.need?(git_branches)
