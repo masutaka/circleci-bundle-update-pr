@@ -1,6 +1,6 @@
 # Circleci::Bundle::Update::Pr
 
-[![Build Status](https://img.shields.io/circleci/project/masutaka/circleci-bundle-update-pr/master.svg?style=flat-square)][circleci]
+[![Build Status](https://img.shields.io/circleci/project/github/masutaka/circleci-bundle-update-pr/master.svg?style=flat-square)][circleci]
 [![License](https://img.shields.io/github/license/masutaka/circleci-bundle-update-pr.svg?style=flat-square)][license]
 [![Gem](https://img.shields.io/gem/v/circleci-bundle-update-pr.svg?style=flat-square)][gem-link]
 
