@@ -14,7 +14,7 @@ GEM
       httpclient
       octokit
     diff-lcs (1.3)
-    faraday (0.15.2)
+    faraday (0.15.3)
       multipart-post (>= 1.2, < 3)
     httpclient (2.8.3)
     multipart-post (2.0.0)
@@ -51,4 +51,4 @@ DEPENDENCIES
   rspec (~> 3.7)
 
 BUNDLED WITH
-   1.16.4
+   1.16.5
