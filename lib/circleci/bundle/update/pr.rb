@@ -9,9 +9,8 @@ module Circleci
         def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"],
                                   assignees: nil, reviewers: nil, labels: nil)
           raise_if_env_unvalid!
-          repo_full_name = "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
 
-          if skip?(repo_full_name)
+          if skip?
             puts 'Skip because it has already existed.'
             return
           end
@@ -27,12 +26,12 @@ module Circleci
           git_username ||= client.user.login
           git_email ||= "#{git_username}@users.noreply.#{github_host}"
 
-          create_branch(git_username, git_email, branch, repo_full_name)
-          pull_request = create_pull_request(repo_full_name, branch, now)
-          add_labels(repo_full_name, pull_request[:number], labels) if labels
-          update_pull_request_body(repo_full_name, pull_request[:number])
-          add_assignees(repo_full_name, pull_request[:number], assignees) if assignees
-          request_review(repo_full_name, pull_request[:number], reviewers) if reviewers
+          create_branch(git_username, git_email, branch)
+          pull_request = create_pull_request(branch, now)
+          add_labels(pull_request[:number], labels) if labels
+          update_pull_request_body(pull_request[:number])
+          add_assignees(pull_request[:number], assignees) if assignees
+          request_review(pull_request[:number], reviewers) if reviewers
         end
 
         def self.raise_if_env_unvalid!
@@ -50,9 +49,8 @@ module Circleci
 
         # Has 'bundle update PR' already existed?
         #
-        # @param repo_full_name [String]
         # @return [Boolean]
-        def self.skip?(repo_full_name)
+        def self.skip?
           client.pull_requests(repo_full_name).find do |pr|
             pr.title =~ /\Abundle update at / && pr.head.ref =~ /\Abundle-update-\d+/
           end != nil
@@ -72,7 +70,7 @@ module Circleci
         end
         private_class_method :change?
 
-        def self.create_branch(git_username, git_email, branch, repo_full_name)
+        def self.create_branch(git_username, git_email, branch)
           remote = "https://#{github_access_token}@#{github_host}/#{repo_full_name}"
           system("git remote add github-url-with-token #{remote}")
           system("git config user.name #{git_username}")
@@ -84,18 +82,18 @@ module Circleci
         end
         private_class_method :create_branch
 
-        def self.create_pull_request(repo_full_name, branch, now)
+        def self.create_pull_request(branch, now)
           title = "bundle update at #{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
           client.create_pull_request(repo_full_name, ENV['CIRCLE_BRANCH'], branch, title)
         end
         private_class_method :create_pull_request
 
-        def self.add_labels(repo_full_name, pr_number, labels)
+        def self.add_labels(pr_number, labels)
           client.add_labels_to_an_issue(repo_full_name, pr_number, labels)
         end
         private_class_method :add_labels
 
-        def self.update_pull_request_body(repo_full_name, pr_number)
+        def self.update_pull_request_body(pr_number)
           ENV["OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ACCESS_TOKEN"]
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
@@ -112,12 +110,12 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
         end
         private_class_method :update_pull_request_body
 
-        def self.add_assignees(repo_full_name, pr_number, assignees)
+        def self.add_assignees(pr_number, assignees)
           client.add_assignees(repo_full_name, pr_number, assignees)
         end
         private_class_method :add_assignees
 
-        def self.request_review(repo_full_name, pr_number, reviewers)
+        def self.request_review(pr_number, reviewers)
           client.request_pull_request_review(repo_full_name, pr_number, reviewers)
         end
         private_class_method :request_review
@@ -141,6 +139,14 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           enterprise? ? ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] : ENV['GITHUB_ACCESS_TOKEN']
         end
         private_class_method :github_access_token
+
+        # Get repository full name
+        #
+        # @return [String] e.g. 'masutaka/circleci-bundle-update-pr'
+        def self.repo_full_name
+          @repo_full_name ||= "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
+        end
+        private_class_method :repo_full_name
 
         def self.github_host
           # A format like https://github.com/masutaka/circleci-bundle-update-pr.git
