@@ -91,6 +91,7 @@ module Circleci
         #
         # @return [Sawyer::Resource] The newly created pull request
         def self.create_pull_request(branch)
+          title = "#{TITLE_PREFIX}#{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
           client.create_pull_request(repo_full_name, ENV['CIRCLE_BRANCH'], branch, title)
         end
         private_class_method :create_pull_request
@@ -163,14 +164,6 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           'github.com'
         end
         private_class_method :github_host
-
-        # Get PR title
-        #
-        # @return [String] e.g. bundle update at 2018-09-29 15:44:55 JST
-        def self.title
-          @title ||= "#{TITLE_PREFIX}#{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
-        end
-        private_class_method :title
 
         # Get unified current time
         #
