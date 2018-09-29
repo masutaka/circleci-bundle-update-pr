@@ -20,13 +20,11 @@ module Circleci
             return
           end
 
-          branch = "bundle-update-#{now.strftime('%Y%m%d%H%M%S')}"
-
           git_username ||= client.user.login
           git_email ||= "#{git_username}@users.noreply.#{github_host}"
 
-          create_branch(git_username, git_email, branch)
-          pull_request = create_pull_request(branch)
+          create_branch(git_username, git_email)
+          pull_request = create_pull_request
           add_labels(pull_request[:number], labels) if labels
           update_pull_request_body(pull_request[:number])
           add_assignees(pull_request[:number], assignees) if assignees
@@ -69,7 +67,7 @@ module Circleci
         end
         private_class_method :change?
 
-        def self.create_branch(git_username, git_email, branch)
+        def self.create_branch(git_username, git_email)
           remote = "https://#{github_access_token}@#{github_host}/#{repo_full_name}"
           system("git remote add github-url-with-token #{remote}")
           system("git config user.name #{git_username}")
@@ -81,7 +79,7 @@ module Circleci
         end
         private_class_method :create_branch
 
-        def self.create_pull_request(branch)
+        def self.create_pull_request
           title = "bundle update at #{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
           client.create_pull_request(repo_full_name, ENV['CIRCLE_BRANCH'], branch, title)
         end
@@ -163,6 +161,14 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           @now ||= Time.now
         end
         private_class_method :now
+
+        # Get git branch for bundle update
+        #
+        # @return [String] e.g. bundle-update-20180929154455
+        def self.branch
+          @branch ||= "bundle-update-#{now.strftime('%Y%m%d%H%M%S')}"
+        end
+        private_class_method :branch
       end
     end
   end
