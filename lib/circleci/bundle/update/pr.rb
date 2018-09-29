@@ -16,7 +16,11 @@ module Circleci
             return
           end
 
-          return unless need?(git_branches)
+          unless need?(git_branches)
+            puts 'No changes due to bundle update'
+            return
+          end
+
           now = Time.now
           branch = "bundle-update-#{now.strftime('%Y%m%d%H%M%S')}"
 
