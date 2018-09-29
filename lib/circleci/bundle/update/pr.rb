@@ -23,8 +23,8 @@ module Circleci
           git_username ||= client.user.login
           git_email ||= "#{git_username}@users.noreply.#{github_host}"
 
-          create_branch(git_username, git_email)
-          pull_request = create_pull_request
+          branch = create_branch(git_username, git_email)
+          pull_request = create_pull_request(branch)
           add_labels(pull_request[:number], labels) if labels
           update_pull_request_body(pull_request[:number])
           add_assignees(pull_request[:number], assignees) if assignees
@@ -70,7 +70,11 @@ module Circleci
         end
         private_class_method :change?
 
+        # Create remote branch for bundle update PR
+        #
+        # @return [String] remote branch name. e.g. bundle-update-20180929154455
         def self.create_branch(git_username, git_email)
+          branch = "#{BRANCH_PREFIX}#{now.strftime('%Y%m%d%H%M%S')}"
           remote = "https://#{github_access_token}@#{github_host}/#{repo_full_name}"
           system("git remote add github-url-with-token #{remote}")
           system("git config user.name #{git_username}")
@@ -79,10 +83,14 @@ module Circleci
           system("git commit -m '$ bundle update && bundle update --ruby'")
           system("git branch -M #{branch}")
           system("git push -q github-url-with-token #{branch}")
+          branch
         end
         private_class_method :create_branch
 
-        def self.create_pull_request
+        # Create bundle update PR
+        #
+        # @return [Sawyer::Resource] The newly created pull request
+        def self.create_pull_request(branch)
           client.create_pull_request(repo_full_name, ENV['CIRCLE_BRANCH'], branch, title)
         end
         private_class_method :create_pull_request
@@ -155,14 +163,6 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           'github.com'
         end
         private_class_method :github_host
-
-        # Get git branch for bundle update
-        #
-        # @return [String] e.g. bundle-update-20180929154455
-        def self.branch
-          @branch ||= "#{BRANCH_PREFIX}#{now.strftime('%Y%m%d%H%M%S')}"
-        end
-        private_class_method :branch
 
         # Get PR title
         #
