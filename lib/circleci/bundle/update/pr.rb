@@ -15,7 +15,7 @@ module Circleci
             return
           end
 
-          unless change?(git_branches)
+          unless need_to_commit?(git_branches)
             puts 'No changes due to bundle update'
             return
           end
@@ -57,18 +57,18 @@ module Circleci
         end
         private_class_method :skip?
 
-        # Are there changes due to bundle update?
+        # Does it need to commit due to bundle update?
         #
         # @param git_branches [Array<String>]
         # @return [Boolean]
-        def self.change?(git_branches)
+        def self.need_to_commit?(git_branches)
           return false unless git_branches.include?(ENV['CIRCLE_BRANCH'])
           unless system("bundle update && bundle update --ruby")
             raise "Unable to execute `bundle update && bundle update --ruby`"
           end
           `git status -sb 2> /dev/null`.include?("Gemfile.lock")
         end
-        private_class_method :change?
+        private_class_method :need_to_commit?
 
         # Create remote branch for bundle update PR
         #
