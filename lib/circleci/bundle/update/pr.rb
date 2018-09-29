@@ -35,6 +35,19 @@ module Circleci
           request_review(repo_full_name, pull_request[:number], reviewers) if reviewers
         end
 
+        def self.raise_if_env_unvalid!
+          raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
+          raise "$CIRCLE_PROJECT_REPONAME isn't set" unless ENV['CIRCLE_PROJECT_REPONAME']
+          raise "$GITHUB_ACCESS_TOKEN isn't set" unless ENV['GITHUB_ACCESS_TOKEN']
+          if ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] && !ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT']
+            raise "$ENTERPRISE_OCTOKIT_API_ENDPOINT isn't set"
+          end
+          if !ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] && ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT']
+            raise "$ENTERPRISE_OCTOKIT_ACCESS_TOKEN isn't set"
+          end
+        end
+        private_class_method :raise_if_env_unvalid!
+
         # Has 'bundle update PR' already existed?
         #
         # @param repo_full_name [String]
@@ -77,6 +90,11 @@ module Circleci
         end
         private_class_method :create_pull_request
 
+        def self.add_labels(repo_full_name, pr_number, labels)
+          client.add_labels_to_an_issue(repo_full_name, pr_number, labels)
+        end
+        private_class_method :add_labels
+
         def self.update_pull_request_body(repo_full_name, pr_number)
           ENV["OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ACCESS_TOKEN"]
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
@@ -103,11 +121,6 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           client.request_pull_request_review(repo_full_name, pr_number, reviewers)
         end
         private_class_method :request_review
-
-        def self.add_labels(repo_full_name, pr_number, labels)
-          client.add_labels_to_an_issue(repo_full_name, pr_number, labels)
-        end
-        private_class_method :add_labels
 
         def self.client
           if enterprise?
@@ -137,19 +150,6 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           'github.com'
         end
         private_class_method :github_host
-
-        def self.raise_if_env_unvalid!
-          raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
-          raise "$CIRCLE_PROJECT_REPONAME isn't set" unless ENV['CIRCLE_PROJECT_REPONAME']
-          raise "$GITHUB_ACCESS_TOKEN isn't set" unless ENV['GITHUB_ACCESS_TOKEN']
-          if ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] && !ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT']
-            raise "$ENTERPRISE_OCTOKIT_API_ENDPOINT isn't set"
-          end
-          if !ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] && ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT']
-            raise "$ENTERPRISE_OCTOKIT_ACCESS_TOKEN isn't set"
-          end
-        end
-        private_class_method :raise_if_env_unvalid!
       end
     end
   end
