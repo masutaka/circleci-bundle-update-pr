@@ -9,8 +9,14 @@ module Circleci
         def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"],
                                   assignees: nil, reviewers: nil, labels: nil)
           raise_if_env_unvalid!
-          return unless need?(git_branches)
           repo_full_name = "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
+
+          if skip?(repo_full_name)
+            puts 'Skip because it has already existed.'
+            return
+          end
+
+          return unless need?(git_branches)
           now = Time.now
           branch = "bundle-update-#{now.strftime('%Y%m%d%H%M%S')}"
 
@@ -24,6 +30,17 @@ module Circleci
           add_assignees(repo_full_name, pull_request[:number], assignees) if assignees
           request_review(repo_full_name, pull_request[:number], reviewers) if reviewers
         end
+
+        # Has 'bundle update PR' already existed?
+        #
+        # @param repo_full_name [String]
+        # @return [Boolean]
+        def self.skip?(repo_full_name)
+          client.pull_requests(repo_full_name).find do |pr|
+            pr.title =~ /\Abundle update at / && pr.head.ref =~ /\Abundle-update-\d+/
+          end != nil
+        end
+        private_class_method :skip?
 
         def self.need?(git_branches)
           return false unless git_branches.include?(ENV['CIRCLE_BRANCH'])
