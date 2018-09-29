@@ -32,6 +32,7 @@ module Circleci
         end
 
         BRANCH_PREFIX = 'bundle-update-'.freeze
+        TITLE_PREFIX = 'bundle update at '.freeze
 
         def self.raise_if_env_unvalid!
           raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
@@ -51,7 +52,7 @@ module Circleci
         # @return [Boolean]
         def self.skip?
           client.pull_requests(repo_full_name).find do |pr|
-            pr.title =~ /\Abundle update at / && pr.head.ref =~ /\A#{BRANCH_PREFIX}\d+/
+            pr.title =~ /\A#{TITLE_PREFIX}/ && pr.head.ref =~ /\A#{BRANCH_PREFIX}\d+/
           end != nil
         end
         private_class_method :skip?
@@ -175,7 +176,7 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
         #
         # @return [String] e.g. bundle update at 2018-09-29 15:44:55 JST
         def self.title
-          @title ||= "bundle update at #{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
+          @title ||= "#{TITLE_PREFIX}#{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
         end
         private_class_method :title
       end
