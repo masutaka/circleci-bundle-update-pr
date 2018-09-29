@@ -89,6 +89,7 @@ module Circleci
 
         # Create bundle update PR
         #
+        # @param branch [String] branch name
         # @return [Sawyer::Resource] The newly created pull request
         def self.create_pull_request(branch)
           title = "#{TITLE_PREFIX}#{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
