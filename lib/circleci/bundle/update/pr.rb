@@ -82,7 +82,6 @@ module Circleci
         private_class_method :create_branch
 
         def self.create_pull_request
-          title = "bundle update at #{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
           client.create_pull_request(repo_full_name, ENV['CIRCLE_BRANCH'], branch, title)
         end
         private_class_method :create_pull_request
@@ -171,6 +170,14 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           @branch ||= "#{BRANCH_PREFIX}#{now.strftime('%Y%m%d%H%M%S')}"
         end
         private_class_method :branch
+
+        # Get PR title
+        #
+        # @return [String] e.g. bundle update at 2018-09-29 15:44:55 JST
+        def self.title
+          @title ||= "bundle update at #{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
+        end
+        private_class_method :title
       end
     end
   end
