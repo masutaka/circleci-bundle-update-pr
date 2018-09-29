@@ -31,6 +31,8 @@ module Circleci
           request_review(pull_request[:number], reviewers) if reviewers
         end
 
+        BRANCH_PREFIX = 'bundle-update-'.freeze
+
         def self.raise_if_env_unvalid!
           raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
           raise "$CIRCLE_PROJECT_REPONAME isn't set" unless ENV['CIRCLE_PROJECT_REPONAME']
@@ -49,7 +51,7 @@ module Circleci
         # @return [Boolean]
         def self.skip?
           client.pull_requests(repo_full_name).find do |pr|
-            pr.title =~ /\Abundle update at / && pr.head.ref =~ /\Abundle-update-\d+/
+            pr.title =~ /\Abundle update at / && pr.head.ref =~ /\A#{BRANCH_PREFIX}\d+/
           end != nil
         end
         private_class_method :skip?
@@ -166,7 +168,7 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
         #
         # @return [String] e.g. bundle-update-20180929154455
         def self.branch
-          @branch ||= "bundle-update-#{now.strftime('%Y%m%d%H%M%S')}"
+          @branch ||= "#{BRANCH_PREFIX}#{now.strftime('%Y%m%d%H%M%S')}"
         end
         private_class_method :branch
       end
