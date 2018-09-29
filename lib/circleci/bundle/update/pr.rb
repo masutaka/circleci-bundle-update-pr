@@ -20,14 +20,13 @@ module Circleci
             return
           end
 
-          now = Time.now
           branch = "bundle-update-#{now.strftime('%Y%m%d%H%M%S')}"
 
           git_username ||= client.user.login
           git_email ||= "#{git_username}@users.noreply.#{github_host}"
 
           create_branch(git_username, git_email, branch)
-          pull_request = create_pull_request(branch, now)
+          pull_request = create_pull_request(branch)
           add_labels(pull_request[:number], labels) if labels
           update_pull_request_body(pull_request[:number])
           add_assignees(pull_request[:number], assignees) if assignees
@@ -82,7 +81,7 @@ module Circleci
         end
         private_class_method :create_branch
 
-        def self.create_pull_request(branch, now)
+        def self.create_pull_request(branch)
           title = "bundle update at #{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
           client.create_pull_request(repo_full_name, ENV['CIRCLE_BRANCH'], branch, title)
         end
@@ -156,6 +155,14 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           'github.com'
         end
         private_class_method :github_host
+
+        # Get unified current time
+        #
+        # @return [Time]
+        def self.now
+          @now ||= Time.now
+        end
+        private_class_method :now
       end
     end
   end
