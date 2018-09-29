@@ -156,14 +156,6 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
         end
         private_class_method :github_host
 
-        # Get unified current time
-        #
-        # @return [Time]
-        def self.now
-          @now ||= Time.now
-        end
-        private_class_method :now
-
         # Get git branch for bundle update
         #
         # @return [String] e.g. bundle-update-20180929154455
@@ -179,6 +171,14 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           @title ||= "#{TITLE_PREFIX}#{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
         end
         private_class_method :title
+
+        # Get unified current time
+        #
+        # @return [Time]
+        def self.now
+          @now ||= Time.now
+        end
+        private_class_method :now
       end
     end
   end
