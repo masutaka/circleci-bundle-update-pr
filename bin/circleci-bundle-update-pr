@@ -8,6 +8,7 @@ options = { assignees: [] }
 opt.on('-a', '--assignees alice,bob,carol', Array, 'Assign the PR to them') { |v| options[:assignees] = v.map(&:strip) }
 opt.on('-r', '--reviewers alice,bob,carol', Array, 'Request PR review to them') { |v| options[:reviewers] = v.map(&:strip) }
 opt.on('-l', '--labels "In Review, Update"', Array, 'Add labels to the PR') { |v| options[:labels] = v.map(&:strip) }
+opt.on('-d', '--duplicate', 'Make PR if it has already existed') { |v| options[:allow_dup_pr] = v }
 opt.parse!(ARGV)
 
 Circleci::Bundle::Update::Pr.create_if_needed(
@@ -17,4 +18,5 @@ Circleci::Bundle::Update::Pr.create_if_needed(
   assignees: options[:assignees],
   reviewers: options[:reviewers],
   labels: options[:labels],
+  allow_dup_pr: !!options[:allow_dup_pr]
 )
