@@ -115,7 +115,7 @@ Usage: circleci-bundle-update-pr [options]
     -a, --assignees alice,bob,carol  Assign the PR to them
     -r, --reviewers alice,bob,carol  Request PR review to them
     -l, --labels "In Review, Update" Add labels to the PR
-    -d, --duplicate                  Make PR if it has already existed
+    -d, --duplicate                  Make PR even if it has already existed
 ```
 
 ## Contributing
