@@ -18,7 +18,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     httpclient (2.8.3)
     multipart-post (2.0.0)
-    octokit (4.12.0)
+    octokit (4.13.0)
       sawyer (~> 0.8.0, >= 0.5.3)
     public_suffix (3.0.3)
     rake (12.3.1)
@@ -28,7 +28,7 @@ GEM
       rspec-mocks (~> 3.8.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
-    rspec-expectations (3.8.1)
+    rspec-expectations (3.8.2)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-mocks (3.8.0)
@@ -51,4 +51,4 @@ DEPENDENCIES
   rspec (~> 3.7)
 
 BUNDLED WITH
-   1.16.5
+   1.16.6
