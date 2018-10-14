@@ -2,13 +2,15 @@ module Circleci
   module Bundle
     module Update
       module Pr
-        class Note
-          def self.exist?
+        module Note
+          module_function
+
+          def exist?
             File.exist?('.circleci/BUNDLE_UPDATE_NOTE.md') ||
               File.exist?('CIRCLECI_BUNDLE_UPDATE_NOTE.md')
           end
 
-          def self.read
+          def read
             if File.exist?('.circleci/BUNDLE_UPDATE_NOTE.md')
               File.read('.circleci/BUNDLE_UPDATE_NOTE.md')
             elsif File.exist?('CIRCLECI_BUNDLE_UPDATE_NOTE.md')
