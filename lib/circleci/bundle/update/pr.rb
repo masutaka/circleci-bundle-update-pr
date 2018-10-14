@@ -1,6 +1,7 @@
 require "circleci/bundle/update/pr/version"
 require "octokit"
 require "compare_linker"
+require "circleci/bundle/update/pr/note"
 
 module Circleci
   module Bundle
@@ -124,6 +125,15 @@ module Circleci
 
 Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle-update-pr)
           EOB
+
+          if Note.exist?
+            body << <<-EOB
+
+---
+
+#{Note.read}
+            EOB
+          end
 
           client.update_pull_request(repo_full_name, pr_number, body: body)
         end
