@@ -88,7 +88,7 @@ module Circleci
           branch = "#{BRANCH_PREFIX}#{now.strftime('%Y%m%d%H%M%S')}"
           remote = "https://#{github_access_token}@#{github_host}/#{repo_full_name}"
           system("git remote add github-url-with-token #{remote}")
-          system("git config user.name #{git_username}")
+          system("git config user.name '#{git_username}'")
           system("git config user.email #{git_email}")
           system("git add Gemfile.lock")
           system("git commit -m '$ bundle update && bundle update --ruby'")
