@@ -2,7 +2,6 @@ require "circleci/bundle/update/pr/version"
 require "octokit"
 require "compare_linker"
 require 'net/http'
-
 module Circleci
   module Bundle
     module Update
