@@ -1,6 +1,7 @@
 require "circleci/bundle/update/pr/version"
 require "octokit"
 require "compare_linker"
+require 'net/http'
 
 module Circleci
   module Bundle
@@ -106,11 +107,16 @@ module Circleci
           ENV["OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ACCESS_TOKEN"]
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
+          compare_linker_list = compare_linker.make_compare_links.to_a
+          compare_linker_list.map! do |link|
+            changelog_link = "#{link.match(/\((.*?)\)/)[1]}/blob/master/CHANGELOG.md"
+            link_exist?(changelog_link)? link << ": [CHANGELOG](#{changelog_link})" : link
+          end
 
           body = <<-EOB
 **Updated RubyGems:**
 
-#{compare_linker.make_compare_links.to_a.join("\n")}
+#{compare_linker_list.join("\n")}
 
 Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle-update-pr)
           EOB
@@ -118,6 +124,29 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           client.update_pull_request(repo_full_name, pr_number, body: body)
         end
         private_class_method :update_pull_request_body
+
+        REDIRECT_MAX_TIMES = 5.freeze
+
+        def link_exist?(link, limit = REDIRECT_MAX_TIMES)
+          if limit == 0
+            return false
+          end
+          begin
+            response = Net::HTTP.get_response(URI.parse(link))
+          rescue
+            return false
+          else
+            case response
+            when Net::HTTPSuccess
+              return true
+            when Net::HTTPRedirection
+              link_exist?(response['location'], limit - 1)
+            else
+              return false
+            end
+          end
+        end
+        private_class_method :link_exist?
 
         def self.add_assignees(pr_number, assignees)
           client.add_assignees(repo_full_name, pr_number, assignees)
