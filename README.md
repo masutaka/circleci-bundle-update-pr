@@ -115,7 +115,43 @@ Usage: circleci-bundle-update-pr [options]
     -a, --assignees alice,bob,carol  Assign the PR to them
     -r, --reviewers alice,bob,carol  Request PR review to them
     -l, --labels "In Review, Update" Add labels to the PR
+    -d, --duplicate                  Make PR even if it has already existed
 ```
+
+## Tips
+
+### Customize PR description
+
+If `.circleci/BUNDLE_UPDATE_NOTE.md` exists, the content will be appended to PR description.
+
+e.g. `.circleci/BUNDLE_UPDATE_NOTE.md` is the below.
+
+```
+## Notice
+
+* example1
+* example2
+```
+
+PR description will be created as the below.
+
+```
+**Updated RubyGems:**
+
+* [ ] [octokit](https://github.com/octokit/octokit.rb): [`4.9.0...4.10.0`](https://github.com/octokit/octokit.rb/compare/v4.9.0...v4.10.0)
+* [ ] [public_suffix](https://github.com/weppos/publicsuffix-ruby): [`3.0.2...3.0.3`](https://github.com/weppos/publicsuffix-ruby/compare/v3.0.2...v3.0.3)
+
+Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle-update-pr)
+
+---
+
+## Notice
+
+* example1
+* example2
+```
+
+`.circleci/BUNDLE_UPDATE_NOTE.md` or `CIRCLECI_BUNDLE_UPDATE_NOTE.md`, either one is OK. It gives priority `.circleci/BUNDLE_UPDATE_NOTE.md` over `CIRCLECI_BUNDLE_UPDATE_NOTE.md`.
 
 ## Contributing
 

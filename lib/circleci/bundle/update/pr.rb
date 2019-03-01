@@ -2,16 +2,18 @@ require "circleci/bundle/update/pr/version"
 require "octokit"
 require "compare_linker"
 require 'net/http'
+require "circleci/bundle/update/pr/note"
+
 
 module Circleci
   module Bundle
     module Update
       module Pr
         def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"],
-                                  assignees: nil, reviewers: nil, labels: nil)
+                                  assignees: nil, reviewers: nil, labels: nil, allow_dup_pr: false)
           raise_if_env_unvalid!
 
-          if skip?
+          if skip?(allow_dup_pr)
             puts 'Skip because it has already existed.'
             return
           end
@@ -48,15 +50,25 @@ module Circleci
         end
         private_class_method :raise_if_env_unvalid!
 
+        # Should skip to make PR?
+        #
+        # @param allow_dup_pr [Boolean]
+        # @return [Boolean]
+        def self.skip?(allow_dup_pr)
+          return false if allow_dup_pr
+          exists_bundle_update_pr?
+        end
+        private_class_method :skip?
+
         # Has 'bundle update PR' already existed?
         #
         # @return [Boolean]
-        def self.skip?
+        def self.exists_bundle_update_pr?
           client.pull_requests(repo_full_name).find do |pr|
             pr.title =~ /\A#{TITLE_PREFIX}/ && pr.head.ref =~ /\A#{BRANCH_PREFIX}\d+/
           end != nil
         end
-        private_class_method :skip?
+        private_class_method :exists_bundle_update_pr?
 
         # Does it need to commit due to bundle update?
         #
@@ -78,7 +90,7 @@ module Circleci
           branch = "#{BRANCH_PREFIX}#{now.strftime('%Y%m%d%H%M%S')}"
           remote = "https://#{github_access_token}@#{github_host}/#{repo_full_name}"
           system("git remote add github-url-with-token #{remote}")
-          system("git config user.name #{git_username}")
+          system("git config user.name '#{git_username}'")
           system("git config user.email #{git_email}")
           system("git add Gemfile.lock")
           system("git commit -m '$ bundle update && bundle update --ruby'")
@@ -120,6 +132,15 @@ module Circleci
 
 Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle-update-pr)
           EOB
+
+          if Note.exist?
+            body << <<-EOB
+
+---
+
+#{Note.read}
+            EOB
+          end
 
           client.update_pull_request(repo_full_name, pr_number, body: body)
         end
