@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    circleci-bundle-update-pr (1.14.1)
+    circleci-bundle-update-pr (1.14.2)
       compare_linker (>= 1.4.0)
       octokit
 
@@ -43,6 +43,7 @@ PLATFORMS
   ruby
   x86_64-darwin-16
   x86_64-darwin-17
+  x86_64-darwin-18
 
 DEPENDENCIES
   bundler
@@ -51,4 +52,4 @@ DEPENDENCIES
   rspec (~> 3.7)
 
 BUNDLED WITH
-   1.17.1
+   1.17.2
