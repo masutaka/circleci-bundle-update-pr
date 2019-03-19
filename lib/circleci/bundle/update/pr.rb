@@ -16,7 +16,12 @@ module Circleci
             return
           end
 
-          unless need_to_commit?(git_branches)
+          unless target_branch?(running_branch: ENV['CIRCLE_BRANCH'], target_branches: git_branches)
+            puts "Skip because CIRCLE_BRANCH[#{ENV['CIRCLE_BRANCH']}] is not included in target branches[#{git_branches.join(',')}]."
+            return
+          end
+
+          unless need_to_commit?
             puts 'No changes due to bundle update'
             return
           end
@@ -68,12 +73,20 @@ module Circleci
         end
         private_class_method :exists_bundle_update_pr?
 
+        # Is running branch included in target_branches?
+        #
+        # @param running_branche String
+        # @param target_branches [Array<String>]
+        # @return [Boolean]
+        def self.target_branch?(running_branch:, target_branches:)
+          target_branches.include?(running_branch)
+        end
+        private_class_method :target_branch?
+
         # Does it need to commit due to bundle update?
         #
-        # @param git_branches [Array<String>]
         # @return [Boolean]
-        def self.need_to_commit?(git_branches)
-          return false unless git_branches.include?(ENV['CIRCLE_BRANCH'])
+        def self.need_to_commit?
           unless system("bundle update && bundle update --ruby")
             raise "Unable to execute `bundle update && bundle update --ruby`"
           end
