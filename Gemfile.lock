@@ -10,6 +10,7 @@ GEM
   specs:
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
+    ast (2.4.0)
     compare_linker (1.4.3)
       httpclient
       octokit
@@ -17,10 +18,16 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     httpclient (2.8.3)
+    jaro_winkler (1.5.2)
     multipart-post (2.0.0)
     octokit (4.14.0)
       sawyer (~> 0.8.0, >= 0.5.3)
+    parallel (1.17.0)
+    parser (2.6.2.1)
+      ast (~> 2.4.0)
+    psych (3.1.0)
     public_suffix (3.0.3)
+    rainbow (3.0.0)
     rake (12.3.2)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
@@ -35,9 +42,19 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.8.0)
     rspec-support (3.8.0)
+    rubocop (0.67.2)
+      jaro_winkler (~> 1.5.1)
+      parallel (~> 1.10)
+      parser (>= 2.5, != 2.5.1.1)
+      psych (>= 3.1.0)
+      rainbow (>= 2.2.2, < 4.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 1.6)
+    ruby-progressbar (1.10.0)
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)
       faraday (~> 0.8, < 1.0)
+    unicode-display_width (1.5.0)
 
 PLATFORMS
   ruby
@@ -50,6 +67,7 @@ DEPENDENCIES
   circleci-bundle-update-pr!
   rake
   rspec (~> 3.7)
+  rubocop
 
 BUNDLED WITH
    1.17.2
