@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker: &docker
-      - image: ruby:2.5.1-alpine
+      - image: ruby:2.4.6-alpine
     working_directory: /work
     steps:
       - run: &setup_requirements
