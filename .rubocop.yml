@@ -3,3 +3,6 @@ require: rubocop-rspec
 AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.4
+
+RSpec/DescribedClass:
+  Enabled: false
