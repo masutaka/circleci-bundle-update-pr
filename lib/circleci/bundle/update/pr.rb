@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require "circleci/bundle/update/pr/version"
-require "octokit"
-require "compare_linker"
-require "circleci/bundle/update/pr/note"
+require 'circleci/bundle/update/pr/version'
+require 'octokit'
+require 'compare_linker'
+require 'circleci/bundle/update/pr/note'
 
 module Circleci
   module Bundle
     module Update
       module Pr
-        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"],
+        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ['master'],
                                   assignees: nil, reviewers: nil, labels: nil, allow_dup_pr: false)
           raise_if_env_unvalid!
 
@@ -89,10 +89,10 @@ module Circleci
         #
         # @return [Boolean]
         def self.need_to_commit?
-          unless system("bundle update && bundle update --ruby")
-            raise "Unable to execute `bundle update && bundle update --ruby`"
+          unless system('bundle update && bundle update --ruby')
+            raise 'Unable to execute `bundle update && bundle update --ruby`'
           end
-          `git status -sb 2> /dev/null`.include?("Gemfile.lock")
+          `git status -sb 2> /dev/null`.include?('Gemfile.lock')
         end
         private_class_method :need_to_commit?
 
@@ -105,7 +105,7 @@ module Circleci
           system("git remote add github-url-with-token #{remote}")
           system("git config user.name '#{git_username}'")
           system("git config user.email #{git_email}")
-          system("git add Gemfile.lock")
+          system('git add Gemfile.lock')
           system("git commit -m '$ bundle update && bundle update --ruby'")
           system("git branch -M #{branch}")
           system("git push -q github-url-with-token #{branch}")
@@ -129,7 +129,7 @@ module Circleci
         private_class_method :add_labels
 
         def self.update_pull_request_body(pr_number)
-          ENV["OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ACCESS_TOKEN"]
+          ENV['OCTOKIT_ACCESS_TOKEN'] = ENV['GITHUB_ACCESS_TOKEN']
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
 
@@ -169,7 +169,7 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
             Octokit::Client.new(access_token: ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'],
                                 api_endpoint: ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT'])
           else
-            Octokit::Client.new(access_token: ENV["GITHUB_ACCESS_TOKEN"])
+            Octokit::Client.new(access_token: ENV['GITHUB_ACCESS_TOKEN'])
           end
         end
         private_class_method :client

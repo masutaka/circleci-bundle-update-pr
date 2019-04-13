@@ -21,16 +21,16 @@ describe Circleci::Bundle::Update::Pr do
     end
   end
 
-  describe ".target_branch?" do
+  describe '.target_branch?' do
     subject do
       Circleci::Bundle::Update::Pr.send(
         :target_branch?,
         running_branch: running_branch,
-        target_branches: ["target"],
+        target_branches: ['target'],
       )
     end
 
-    context "running_target is included in target branches" do
+    context 'running_target is included in target branches' do
       let(:running_branch) { 'target' }
       it { is_expected.to be_truthy }
     end
