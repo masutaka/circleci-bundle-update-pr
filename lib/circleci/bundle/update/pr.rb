@@ -75,7 +75,7 @@ module Circleci
 
         # Is running branch included in target_branches?
         #
-        # @param running_branche String
+        # @param running_branch [String]
         # @param target_branches [Array<String>]
         # @return [Boolean]
         def self.target_branch?(running_branch:, target_branches:)
