@@ -39,8 +39,8 @@ module Circleci
           request_review(pull_request[:number], reviewers) if reviewers
         end
 
-        BRANCH_PREFIX = ENV['BRANCH_PREFIX'] || 'bundle-update-'.freeze
-        TITLE_PREFIX = 'bundle update at '.freeze
+        BRANCH_PREFIX = ENV['BRANCH_PREFIX'] || 'bundle-update-'
+        TITLE_PREFIX = 'bundle update at '
 
         def self.raise_if_env_unvalid!
           raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
