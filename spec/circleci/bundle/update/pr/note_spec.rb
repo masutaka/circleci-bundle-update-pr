@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'tmpdir'
 
 describe Circleci::Bundle::Update::Pr::Note do

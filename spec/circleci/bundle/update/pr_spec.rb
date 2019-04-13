@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe Circleci::Bundle::Update::Pr do
   describe '.github_host' do
     subject { Circleci::Bundle::Update::Pr.send(:github_host) }
