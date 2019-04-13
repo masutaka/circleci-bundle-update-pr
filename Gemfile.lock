@@ -50,6 +50,8 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.6)
+    rubocop-rspec (1.32.0)
+      rubocop (>= 0.60.0)
     ruby-progressbar (1.10.0)
     sawyer (0.8.1)
       addressable (>= 2.3.5, < 2.6)
@@ -68,6 +70,7 @@ DEPENDENCIES
   rake
   rspec (~> 3.7)
   rubocop
+  rubocop-rspec
 
 BUNDLED WITH
    1.17.2
