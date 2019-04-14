@@ -61,6 +61,7 @@ module Circleci
         # @return [Boolean]
         def self.skip?(allow_dup_pr)
           return false if allow_dup_pr
+
           exists_bundle_update_pr?
         end
         private_class_method :skip?
@@ -92,6 +93,7 @@ module Circleci
           unless system('bundle update && bundle update --ruby')
             raise 'Unable to execute `bundle update && bundle update --ruby`'
           end
+
           `git status -sb 2> /dev/null`.include?('Gemfile.lock')
         end
         private_class_method :need_to_commit?
@@ -197,6 +199,7 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           return $1 if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{https://(.+?)/}
           # A format like git@github.com:masutaka/compare_linker.git
           return $1 if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{([^@]+?):}
+
           'github.com'
         end
         private_class_method :github_host
