@@ -135,21 +135,21 @@ module Circleci
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
 
-          body = <<-EOB
+          body = <<-PR_BODY
 **Updated RubyGems:**
 
 #{compare_linker.make_compare_links.to_a.join("\n")}
 
 Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle-update-pr)
-          EOB
+          PR_BODY
 
           if Note.exist?
-            body << <<-EOB
+            body << <<-PR_BODY
 
 ---
 
 #{Note.read}
-            EOB
+            PR_BODY
           end
 
           client.update_pull_request(repo_full_name, pr_number, body: body)
