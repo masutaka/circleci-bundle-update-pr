@@ -15,39 +15,6 @@ Layout/IndentHeredoc:
     - 'lib/circleci/bundle/update/pr.rb'
 
 # Offense count: 2
-Metrics/AbcSize:
-  Max: 26
-
-# Offense count: 2
-# Configuration parameters: CountComments, ExcludedMethods.
-# ExcludedMethods: refine
-Metrics/BlockLength:
-  Max: 60
-
-# Offense count: 2
-Metrics/CyclomaticComplexity:
-  Max: 8
-
-# Offense count: 2
-# Configuration parameters: CountComments, ExcludedMethods.
-Metrics/MethodLength:
-  Max: 21
-
-# Offense count: 1
-# Configuration parameters: CountComments.
-Metrics/ModuleLength:
-  Max: 137
-
-# Offense count: 1
-# Configuration parameters: CountKeywordArgs.
-Metrics/ParameterLists:
-  Max: 7
-
-# Offense count: 1
-Metrics/PerceivedComplexity:
-  Max: 8
-
-# Offense count: 2
 # Configuration parameters: Blacklist.
 # Blacklist: (?-mix:(^|\s)(EO[A-Z]{1}|END)(\s|$))
 Naming/HeredocDelimiterNaming:
@@ -61,9 +28,3 @@ RSpec/ContextWording:
   Exclude:
     - 'spec/circleci/bundle/update/pr/note_spec.rb'
     - 'spec/circleci/bundle/update/pr_spec.rb'
-
-# Offense count: 30
-# Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
-Metrics/LineLength:
-  Max: 133

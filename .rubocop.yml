@@ -5,6 +5,9 @@ AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.4
 
+Metrics:
+  Enabled: false
+
 RSpec/DescribedClass:
   Enabled: false
 
