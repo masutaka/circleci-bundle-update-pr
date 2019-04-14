@@ -198,7 +198,7 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           # A format like https://github.com/masutaka/circleci-bundle-update-pr.git
           return Regexp.last_match(1) if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{https://(.+?)/}
           # A format like git@github.com:masutaka/compare_linker.git
-          return Regexp.last_match(1) if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{([^@]+?):}
+          return Regexp.last_match(1) if ENV['CIRCLE_REPOSITORY_URL'] =~ /([^@]+?):/
 
           'github.com'
         end
