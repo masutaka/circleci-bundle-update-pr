@@ -63,14 +63,6 @@ RSpec/ContextWording:
     - 'spec/circleci/bundle/update/pr_spec.rb'
 
 # Offense count: 2
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/circleci/bundle/update/pr.rb'
-    - 'lib/circleci/bundle/update/pr/note.rb'
-
-# Offense count: 2
 Style/DoubleNegation:
   Exclude:
     - 'bin/circleci-bundle-update-pr'
