@@ -84,13 +84,6 @@ Style/GuardClause:
 
 # Offense count: 2
 # Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'circleci-bundle-update-pr.gemspec'
-
-# Offense count: 2
-# Cop supports --auto-correct.
 Style/PerlBackrefs:
   Exclude:
     - 'lib/circleci/bundle/update/pr.rb'
