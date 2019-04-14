@@ -64,12 +64,6 @@ RSpec/ContextWording:
 
 # Offense count: 3
 # Cop supports --auto-correct.
-RSpec/EmptyLineAfterFinalLet:
-  Exclude:
-    - 'spec/circleci/bundle/update/pr_spec.rb'
-
-# Offense count: 3
-# Cop supports --auto-correct.
 RSpec/EmptyLineAfterHook:
   Exclude:
     - 'spec/circleci/bundle/update/pr_spec.rb'
