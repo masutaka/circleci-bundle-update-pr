@@ -82,12 +82,6 @@ Style/GuardClause:
   Exclude:
     - 'lib/circleci/bundle/update/pr.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/UnneededPercentQ:
-  Exclude:
-    - 'circleci-bundle-update-pr.gemspec'
-
 # Offense count: 30
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
