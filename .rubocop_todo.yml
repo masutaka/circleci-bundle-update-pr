@@ -13,11 +13,3 @@
 Layout/IndentHeredoc:
   Exclude:
     - 'lib/circleci/bundle/update/pr.rb'
-
-# Offense count: 14
-# Configuration parameters: Prefixes.
-# Prefixes: when, with, without
-RSpec/ContextWording:
-  Exclude:
-    - 'spec/circleci/bundle/update/pr/note_spec.rb'
-    - 'spec/circleci/bundle/update/pr_spec.rb'
