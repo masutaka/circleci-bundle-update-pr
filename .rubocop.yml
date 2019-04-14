@@ -15,5 +15,8 @@ Style/BlockComments:
 Style/Documentation:
   Enabled: false
 
+Style/DoubleNegation:
+  Enabled: false
+
 Style/IfUnlessModifier:
   Enabled: false
