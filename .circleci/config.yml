@@ -31,6 +31,9 @@ jobs:
           paths:
             - /usr/local/bundle
       - run:
+          name: Run RuboCop
+          command: rubocop
+      - run:
           name: Run RSpec
           command: rspec
   continuous_bundle_update:
