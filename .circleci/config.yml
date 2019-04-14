@@ -44,6 +44,90 @@ jobs:
             - /usr/local/bundle
       - run: *rubocop
       - run: *rspec
+  build_on_ruby_2_3:
+    docker:
+       - image: ruby:2.3-alpine
+    working_directory: /work
+    steps:
+      - run: *setup_requirements
+      - run: *set_timezone
+      - checkout
+      - restore_cache:
+          name: Restore bundler cache
+          keys:
+            - gems-ruby2.3-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+            - gems-ruby2.3-{{ .Environment.COMMON_CACHE_KEY }}-
+      - run: *bundle_install
+      - save_cache:
+          name: Save bundler cache
+          key: gems-ruby2.3-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - /usr/local/bundle
+      - run: *rubocop
+      - run: *rspec
+  build_on_ruby_2_4:
+    docker:
+       - image: ruby:2.4-alpine
+    working_directory: /work
+    steps:
+      - run: *setup_requirements
+      - run: *set_timezone
+      - checkout
+      - restore_cache:
+          name: Restore bundler cache
+          keys:
+            - gems-ruby2.4-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+            - gems-ruby2.4-{{ .Environment.COMMON_CACHE_KEY }}-
+      - run: *bundle_install
+      - save_cache:
+          name: Save bundler cache
+          key: gems-ruby2.4-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - /usr/local/bundle
+      - run: *rubocop
+      - run: *rspec
+  build_on_ruby_2_5:
+    docker:
+       - image: ruby:2.5-alpine
+    working_directory: /work
+    steps:
+      - run: *setup_requirements
+      - run: *set_timezone
+      - checkout
+      - restore_cache:
+          name: Restore bundler cache
+          keys:
+            - gems-ruby2.5-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+            - gems-ruby2.5-{{ .Environment.COMMON_CACHE_KEY }}-
+      - run: *bundle_install
+      - save_cache:
+          name: Save bundler cache
+          key: gems-ruby2.5-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - /usr/local/bundle
+      - run: *rubocop
+      - run: *rspec
+  build_on_ruby_2_6:
+    docker:
+       - image: ruby:2.6-alpine
+    working_directory: /work
+    steps:
+      - run: *setup_requirements
+      - run: *set_timezone
+      - checkout
+      - restore_cache:
+          name: Restore bundler cache
+          keys:
+            - gems-ruby2.6-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+            - gems-ruby2.6-{{ .Environment.COMMON_CACHE_KEY }}-
+      - run: *bundle_install
+      - save_cache:
+          name: Save bundler cache
+          key: gems-ruby2.6-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
+          paths:
+            - /usr/local/bundle
+      - run: *rubocop
+      - run: *rspec
   continuous_bundle_update:
     docker: *docker_ruby2_2
     working_directory: /work
@@ -64,6 +148,10 @@ workflows:
   build:
     jobs:
       - build_on_ruby_2_2
+      - build_on_ruby_2_3
+      - build_on_ruby_2_4
+      - build_on_ruby_2_5
+      - build_on_ruby_2_6
   nightly:
     triggers:
       - schedule:
