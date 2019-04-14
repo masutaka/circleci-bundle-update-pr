@@ -24,14 +24,14 @@ references:
 
 jobs:
   build_on_ruby_2_2:
-    docker: &docker_ruby2_2
+    docker:
        - image: ruby:2.2-alpine
     working_directory: /work
     steps:
       - run: *setup_requirements
       - run: *set_timezone
       - checkout
-      - restore_cache: &restore_cache_ruby2_2
+      - restore_cache:
           name: Restore bundler cache
           keys:
             - gems-ruby2.2-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
@@ -108,14 +108,14 @@ jobs:
       - run: *rubocop
       - run: *rspec
   build_on_ruby_2_6:
-    docker:
+    docker: &docker_ruby2_6
        - image: ruby:2.6-alpine
     working_directory: /work
     steps:
       - run: *setup_requirements
       - run: *set_timezone
       - checkout
-      - restore_cache:
+      - restore_cache: &restore_cache_ruby2_6
           name: Restore bundler cache
           keys:
             - gems-ruby2.6-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
@@ -129,13 +129,13 @@ jobs:
       - run: *rubocop
       - run: *rspec
   continuous_bundle_update:
-    docker: *docker_ruby2_2
+    docker: *docker_ruby2_6
     working_directory: /work
     steps:
       - run: *setup_requirements
       - run: *set_timezone
       - checkout
-      - restore_cache: *restore_cache_ruby2_2
+      - restore_cache: *restore_cache_ruby2_6
       - run:
           name: Setup requirements for continuous bundle update
           command: gem install -N circleci-bundle-update-pr
