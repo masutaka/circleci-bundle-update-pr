@@ -62,12 +62,6 @@ RSpec/ContextWording:
     - 'spec/circleci/bundle/update/pr/note_spec.rb'
     - 'spec/circleci/bundle/update/pr_spec.rb'
 
-# Offense count: 1
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/circleci/bundle/update/pr.rb'
-
 # Offense count: 30
 # Configuration parameters: AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
