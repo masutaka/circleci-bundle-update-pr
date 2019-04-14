@@ -82,12 +82,6 @@ Style/GuardClause:
   Exclude:
     - 'lib/circleci/bundle/update/pr.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/PerlBackrefs:
-  Exclude:
-    - 'lib/circleci/bundle/update/pr.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, AllowInnerSlashes.
