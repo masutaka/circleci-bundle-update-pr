@@ -14,14 +14,6 @@ Layout/IndentHeredoc:
   Exclude:
     - 'lib/circleci/bundle/update/pr.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: final_newline, final_blank_line
-Layout/TrailingBlankLines:
-  Exclude:
-    - 'Rakefile'
-
 # Offense count: 2
 Metrics/AbcSize:
   Max: 26
