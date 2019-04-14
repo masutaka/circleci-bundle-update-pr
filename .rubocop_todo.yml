@@ -64,12 +64,6 @@ RSpec/ContextWording:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-RSpec/EmptyLineAfterSubject:
-  Exclude:
-    - 'spec/circleci/bundle/update/pr_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Style/BlockComments:
   Exclude:
     - 'spec/spec_helper.rb'
