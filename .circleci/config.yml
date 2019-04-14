@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker: &docker
-      - image: ruby:2.5.1-alpine
+      - image: ruby:2.2.10-alpine
     working_directory: /work
     steps:
       - run: &setup_requirements
@@ -10,7 +10,7 @@ jobs:
           command: |
             # See also https://circleci.com/docs/2.0/custom-images/#adding-required-and-custom-tools-or-files
             apk add --update --no-cache git openssh-client tar gzip ca-certificates \
-              tzdata
+              build-base tzdata
       - run: &set_timezone
           name: Set timezone to Asia/Tokyo
           command: cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
@@ -30,6 +30,9 @@ jobs:
           key: gems-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
           paths:
             - /usr/local/bundle
+      - run:
+          name: Run RuboCop
+          command: rubocop
       - run:
           name: Run RSpec
           command: rspec

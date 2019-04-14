@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-require "circleci/bundle/update/pr"
+require 'circleci/bundle/update/pr'
 require 'optparse'
 
 opt = OptionParser.new
@@ -14,7 +15,7 @@ opt.parse!(ARGV)
 Circleci::Bundle::Update::Pr.create_if_needed(
   git_username: ARGV.shift,
   git_email: ARGV.shift,
-  git_branches: ARGV.empty? ? ["master"] : ARGV,
+  git_branches: ARGV.empty? ? ['master'] : ARGV,
   assignees: options[:assignees],
   reviewers: options[:reviewers],
   labels: options[:labels],

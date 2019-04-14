@@ -1,13 +1,15 @@
-require "circleci/bundle/update/pr/version"
-require "octokit"
-require "compare_linker"
-require "circleci/bundle/update/pr/note"
+# frozen_string_literal: true
+
+require 'circleci/bundle/update/pr/version'
+require 'octokit'
+require 'compare_linker'
+require 'circleci/bundle/update/pr/note'
 
 module Circleci
   module Bundle
     module Update
       module Pr
-        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ["master"],
+        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ['master'],
                                   assignees: nil, reviewers: nil, labels: nil, allow_dup_pr: false)
           raise_if_env_unvalid!
 
@@ -59,6 +61,7 @@ module Circleci
         # @return [Boolean]
         def self.skip?(allow_dup_pr)
           return false if allow_dup_pr
+
           exists_bundle_update_pr?
         end
         private_class_method :skip?
@@ -87,10 +90,11 @@ module Circleci
         #
         # @return [Boolean]
         def self.need_to_commit?
-          unless system("bundle update && bundle update --ruby")
-            raise "Unable to execute `bundle update && bundle update --ruby`"
+          unless system('bundle update && bundle update --ruby')
+            raise 'Unable to execute `bundle update && bundle update --ruby`'
           end
-          `git status -sb 2> /dev/null`.include?("Gemfile.lock")
+
+          `git status -sb 2> /dev/null`.include?('Gemfile.lock')
         end
         private_class_method :need_to_commit?
 
@@ -103,7 +107,7 @@ module Circleci
           system("git remote add github-url-with-token #{remote}")
           system("git config user.name '#{git_username}'")
           system("git config user.email #{git_email}")
-          system("git add Gemfile.lock")
+          system('git add Gemfile.lock')
           system("git commit -m '$ bundle update && bundle update --ruby'")
           system("git branch -M #{branch}")
           system("git push -q github-url-with-token #{branch}")
@@ -127,25 +131,25 @@ module Circleci
         private_class_method :add_labels
 
         def self.update_pull_request_body(pr_number)
-          ENV["OCTOKIT_ACCESS_TOKEN"] = ENV["GITHUB_ACCESS_TOKEN"]
+          ENV['OCTOKIT_ACCESS_TOKEN'] = ENV['GITHUB_ACCESS_TOKEN']
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
 
-          body = <<-EOB
+          body = <<-PR_BODY
 **Updated RubyGems:**
 
 #{compare_linker.make_compare_links.to_a.join("\n")}
 
 Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle-update-pr)
-          EOB
+          PR_BODY
 
           if Note.exist?
-            body << <<-EOB
+            body << <<-PR_BODY
 
 ---
 
 #{Note.read}
-            EOB
+            PR_BODY
           end
 
           client.update_pull_request(repo_full_name, pr_number, body: body)
@@ -167,7 +171,7 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
             Octokit::Client.new(access_token: ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'],
                                 api_endpoint: ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT'])
           else
-            Octokit::Client.new(access_token: ENV["GITHUB_ACCESS_TOKEN"])
+            Octokit::Client.new(access_token: ENV['GITHUB_ACCESS_TOKEN'])
           end
         end
         private_class_method :client
@@ -192,9 +196,10 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
 
         def self.github_host
           # A format like https://github.com/masutaka/circleci-bundle-update-pr.git
-          return $1 if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{https://(.+?)/}
+          return Regexp.last_match(1) if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{https://(.+?)/}
           # A format like git@github.com:masutaka/compare_linker.git
-          return $1 if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{([^@]+?):}
+          return Regexp.last_match(1) if ENV['CIRCLE_REPOSITORY_URL'] =~ /([^@]+?):/
+
           'github.com'
         end
         private_class_method :github_host

@@ -1,0 +1,31 @@
+require: rubocop-rspec
+
+AllCops:
+  DisplayCopNames: true
+  TargetRubyVersion: 2.2
+
+Layout/IndentHeredoc:
+  Exclude:
+    - 'lib/circleci/bundle/update/pr.rb'
+
+Metrics:
+  Enabled: false
+
+RSpec/DescribedClass:
+  Enabled: false
+
+Style/BlockComments:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Style/Documentation:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
