@@ -1,0 +1,4 @@
+# Until I drop ruby-2.2 support
+Layout/IndentHeredoc:
+  Exclude:
+    - 'lib/circleci/bundle/update/pr.rb'
