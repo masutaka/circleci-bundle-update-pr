@@ -30,7 +30,7 @@ describe Circleci::Bundle::Update::Pr do
       Circleci::Bundle::Update::Pr.send(
         :target_branch?,
         running_branch: running_branch,
-        target_branches: ['target'],
+        target_branches: ['target']
       )
     end
 
