@@ -23,7 +23,7 @@ references:
     command: rspec
 
 jobs:
-  build_on_ruby_2_2:
+  build_on_ruby2_2:
     docker:
        - image: ruby:2.2-alpine
     working_directory: /work
@@ -44,7 +44,7 @@ jobs:
             - /usr/local/bundle
       - run: *rubocop
       - run: *rspec
-  build_on_ruby_2_3:
+  build_on_ruby2_3:
     docker:
        - image: ruby:2.3-alpine
     working_directory: /work
@@ -65,7 +65,7 @@ jobs:
             - /usr/local/bundle
       - run: *rubocop
       - run: *rspec
-  build_on_ruby_2_4:
+  build_on_ruby2_4:
     docker:
        - image: ruby:2.4-alpine
     working_directory: /work
@@ -86,7 +86,7 @@ jobs:
             - /usr/local/bundle
       - run: *rubocop
       - run: *rspec
-  build_on_ruby_2_5:
+  build_on_ruby2_5:
     docker:
        - image: ruby:2.5-alpine
     working_directory: /work
@@ -107,7 +107,7 @@ jobs:
             - /usr/local/bundle
       - run: *rubocop
       - run: *rspec
-  build_on_ruby_2_6:
+  build_on_ruby2_6:
     docker: &docker_ruby2_6
        - image: ruby:2.6-alpine
     working_directory: /work
@@ -147,11 +147,11 @@ workflows:
   version: 2
   build:
     jobs:
-      - build_on_ruby_2_2
-      - build_on_ruby_2_3
-      - build_on_ruby_2_4
-      - build_on_ruby_2_5
-      - build_on_ruby_2_6
+      - build_on_ruby2_2
+      - build_on_ruby2_3
+      - build_on_ruby2_4
+      - build_on_ruby2_5
+      - build_on_ruby2_6
   nightly:
     triggers:
       - schedule:
