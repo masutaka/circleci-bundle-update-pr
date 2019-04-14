@@ -145,7 +145,7 @@ jobs:
 
 workflows:
   version: 2
-  build:
+  ordinary:
     jobs:
       - build_on_ruby2_2
       - build_on_ruby2_3
