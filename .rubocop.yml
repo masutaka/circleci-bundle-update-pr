@@ -11,3 +11,6 @@ RSpec/DescribedClass:
 Style/BlockComments:
   Exclude:
     - 'spec/spec_helper.rb'
+
+Style/IfUnlessModifier:
+  Enabled: false
