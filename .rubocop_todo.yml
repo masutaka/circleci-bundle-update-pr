@@ -77,12 +77,6 @@ Style/DoubleNegation:
     - 'lib/circleci/bundle/update/pr.rb'
 
 # Offense count: 1
-# Cop supports --auto-correct.
-Style/ExpandPathArguments:
-  Exclude:
-    - 'circleci-bundle-update-pr.gemspec'
-
-# Offense count: 1
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
   Exclude:
