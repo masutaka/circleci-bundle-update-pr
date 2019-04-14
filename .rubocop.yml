@@ -1,9 +1,12 @@
-inherit_from: .rubocop_todo.yml
 require: rubocop-rspec
 
 AllCops:
   DisplayCopNames: true
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.2
+
+Layout/IndentHeredoc:
+  Exclude:
+    - 'lib/circleci/bundle/update/pr.rb'
 
 Metrics:
   Enabled: false
