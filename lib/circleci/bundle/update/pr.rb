@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require 'circleci/bundle/update/pr/version'
 require 'octokit'
 require 'compare_linker'

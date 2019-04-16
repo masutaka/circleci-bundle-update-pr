@@ -23,27 +23,6 @@ references:
     command: rspec
 
 jobs:
-  build_on_ruby2_2:
-    docker:
-       - image: ruby:2.2-alpine
-    working_directory: /work
-    steps:
-      - run: *setup_requirements
-      - run: *set_timezone
-      - checkout
-      - restore_cache:
-          name: Restore bundler cache
-          keys:
-            - gems-ruby2.2-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
-            - gems-ruby2.2-{{ .Environment.COMMON_CACHE_KEY }}-
-      - run: *bundle_install
-      - save_cache:
-          name: Save bundler cache
-          key: gems-ruby2.2-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
-          paths:
-            - /usr/local/bundle
-      - run: *rubocop
-      - run: *rspec
   build_on_ruby2_3:
     docker:
        - image: ruby:2.3-alpine
@@ -147,7 +126,6 @@ workflows:
   version: 2
   ordinary:
     jobs:
-      - build_on_ruby2_2
       - build_on_ruby2_3
       - build_on_ruby2_4
       - build_on_ruby2_5
