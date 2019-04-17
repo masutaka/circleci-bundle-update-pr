@@ -38,7 +38,7 @@ module Circleci
         end
 
         BRANCH_PREFIX = ENV['BRANCH_PREFIX'] || 'bundle-update-'.freeze
-        TITLE_PREFIX = 'bundle update at '.freeze
+        TITLE_PREFIX = ENV['TITLE_PREFIX'] || 'bundle update at '.freeze
 
         def self.raise_if_env_unvalid!
           raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
