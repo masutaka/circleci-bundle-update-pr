@@ -66,10 +66,8 @@ jobs:
             bundle clean
       - save_bundle_cache:
           ruby_version: << parameters.ruby_version >>
-      - run:
-          command: rubocop
-      - run:
-          command: rspec
+      - run: rubocop
+      - run: rspec
   continuous_bundle_update:
     executor:
       name: default
