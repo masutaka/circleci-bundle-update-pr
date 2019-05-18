@@ -1,4 +1,14 @@
-version: 2
+version: 2.1
+
+executors:
+  default:
+    parameters:
+      ruby_version:
+        type: enum
+        enum: ['2.3', '2.4', '2.5', '2.6']
+    docker:
+      - image: ruby:<< parameters.ruby_version >>-alpine
+    working_directory: /work
 
 references:
   - &setup_requirements
@@ -24,9 +34,9 @@ references:
 
 jobs:
   build_on_ruby2_3:
-    docker:
-       - image: ruby:2.3-alpine
-    working_directory: /work
+    executor:
+      name: default
+      ruby_version: '2.3'
     steps:
       - run: *setup_requirements
       - run: *set_timezone
@@ -45,9 +55,9 @@ jobs:
       - run: *rubocop
       - run: *rspec
   build_on_ruby2_4:
-    docker:
-       - image: ruby:2.4-alpine
-    working_directory: /work
+    executor:
+      name: default
+      ruby_version: '2.4'
     steps:
       - run: *setup_requirements
       - run: *set_timezone
@@ -66,9 +76,9 @@ jobs:
       - run: *rubocop
       - run: *rspec
   build_on_ruby2_5:
-    docker:
-       - image: ruby:2.5-alpine
-    working_directory: /work
+    executor:
+      name: default
+      ruby_version: '2.5'
     steps:
       - run: *setup_requirements
       - run: *set_timezone
@@ -87,9 +97,9 @@ jobs:
       - run: *rubocop
       - run: *rspec
   build_on_ruby2_6:
-    docker: &docker_ruby2_6
-       - image: ruby:2.6-alpine
-    working_directory: /work
+    executor:
+      name: default
+      ruby_version: '2.6'
     steps:
       - run: *setup_requirements
       - run: *set_timezone
@@ -108,8 +118,9 @@ jobs:
       - run: *rubocop
       - run: *rspec
   continuous_bundle_update:
-    docker: *docker_ruby2_6
-    working_directory: /work
+    executor:
+      name: default
+      ruby_version: '2.6'
     steps:
       - run: *setup_requirements
       - run: *set_timezone
