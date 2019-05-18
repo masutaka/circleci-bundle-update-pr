@@ -89,12 +89,16 @@ workflows:
   ordinary:
     jobs:
       - build:
+          name: ruby-2.3
           ruby_version: '2.3'
       - build:
+          name: ruby-2.4
           ruby_version: '2.4'
       - build:
+          name: ruby-2.5
           ruby_version: '2.5'
       - build:
+          name: ruby-2.6
           ruby_version: '2.6'
   nightly:
     triggers:
