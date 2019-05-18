@@ -78,10 +78,10 @@ jobs:
       - restore_bundle_cache:
           ruby_version: '2.6'
       - run:
-          name: Setup requirements for continuous bundle update
+          name: Install circleci-bundle-update-pr
           command: gem install -N circleci-bundle-update-pr
       - deploy:
-          name: Continuous bundle update
+          name: Run circleci-bundle-update-pr
           command: circleci-bundle-update-pr CircleCI circleci@example.com $CIRCLE_BRANCH
 
 workflows:
