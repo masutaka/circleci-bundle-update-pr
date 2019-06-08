@@ -73,8 +73,8 @@ jobs:
       name: default
       ruby_version: '2.6'
     steps:
-      - checkout
       - setup_requirements
+      - checkout
       - restore_bundle_cache:
           ruby_version: '2.6'
       - run:
