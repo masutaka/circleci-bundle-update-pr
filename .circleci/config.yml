@@ -78,8 +78,10 @@ jobs:
       - restore_bundle_cache:
           ruby_version: '2.6'
       - run:
-          name: Install circleci-bundle-update-pr
-          command: gem install -N circleci-bundle-update-pr
+          name: Install edge circleci-bundle-update-pr
+          command: |
+            gem install -N specific_install
+            gem specific_install https://github.com/masutaka/circleci-bundle-update-pr.git
       - deploy:
           name: Run circleci-bundle-update-pr
           command: circleci-bundle-update-pr CircleCI circleci@example.com $CIRCLE_BRANCH
