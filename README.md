@@ -53,7 +53,7 @@ jobs:
           name: Install System Dependencies
           command: |
             # See also https://circleci.com/docs/2.0/custom-images/#adding-required-and-custom-tools-or-files
-            apk add --update --no-cache git openssh-client tar gzip ca-certificates \
+            apk add --update --no-cache openssh-client tar gzip ca-certificates \
               tzdata
             gem install -N bundler
       - run:
