@@ -153,6 +153,57 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
 
 `.circleci/BUNDLE_UPDATE_NOTE.md` or `CIRCLECI_BUNDLE_UPDATE_NOTE.md`, either one is OK. It gives priority `.circleci/BUNDLE_UPDATE_NOTE.md` over `CIRCLECI_BUNDLE_UPDATE_NOTE.md`.
 
+### Run on GitHub Actions
+Configure your `.github/workflows/bundle-update-pr.yml` to run circleci-bundle-update-pr, for example:
+
+```yaml
+name: bundle-update-pr
+
+on:
+  schedule:
+    - cron: "00 10 * * 5" # JST 19:00 (Fri)
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: v2.6.x
+
+      - name: Install dependencies
+        run: |
+          set -x
+          gem install -N bundler circleci-bundle-update-pr
+
+      - name: Set timezone to Asia/Tokyo
+        run: |
+          set -x
+          cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+
+      - name: run circleci-bundle-update-pr
+        run: |
+          set -x
+
+          export CIRCLE_BRANCH=$(echo $GITHUB_BRANCH | sed -e 's!refs/heads/!!g')
+          export CIRCLE_PROJECT_USERNAME=$(echo $GITHUB_REPOSITORY | cut -d "/" -f 1)
+          export CIRCLE_PROJECT_REPONAME=$(echo $GITHUB_REPOSITORY | cut -d "/" -f 2)
+
+          git checkout -b $CIRCLE_BRANCH
+
+          circleci-bundle-update-pr "${GIT_USER_NAME}" "${GIT_USER_EMAIL}"
+        env:
+          GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_BRANCH:       ${{ github.ref }}
+          GITHUB_REPOSITORY:   ${{ github.repository }}
+          GIT_USER_NAME:       "your name"
+          GIT_USER_EMAIL:      "ci@example.com"
+```
+
 ## Contributing
 
 1. Fork it ( https://github.com/masutaka/circleci-bundle-update-pr/fork )
