@@ -88,11 +88,15 @@ module Circleci
         #
         # @return [Boolean]
         def self.need_to_commit?
+          old_lockfile = File.read('Gemfile.lock')
+
           unless system('bundle update && bundle update --ruby')
             raise 'Unable to execute `bundle update && bundle update --ruby`'
           end
 
-          `git status -sb 2> /dev/null`.include?('Gemfile.lock')
+          new_lockfile = File.read('Gemfile.lock')
+
+          old_lockfile != new_lockfile
         end
         private_class_method :need_to_commit?
 
@@ -101,14 +105,42 @@ module Circleci
         # @return [String] remote branch name. e.g. bundle-update-20180929154455
         def self.create_branch(git_username, git_email)
           branch = "#{BRANCH_PREFIX}#{now.strftime('%Y%m%d%H%M%S')}"
-          remote = "https://#{github_access_token}@#{github_host}/#{repo_full_name}"
-          system("git remote add github-url-with-token #{remote}")
-          system("git config user.name '#{git_username}'")
-          system("git config user.email #{git_email}")
-          system('git add Gemfile.lock')
-          system("git commit -m '$ bundle update && bundle update --ruby'")
-          system("git branch -M #{branch}")
-          system("git push -q github-url-with-token #{branch}")
+
+          current_ref = client.ref(repo_full_name, "heads/#{ENV['CIRCLE_BRANCH']}")
+          branch_ref = client.create_ref(repo_full_name, "heads/#{branch}", current_ref.object.sha)
+
+          branch_commit = client.commit(repo_full_name, branch_ref.object.sha)
+
+          lockfile = File.read('Gemfile.lock')
+          lockfile_blob_sha = client.create_blob(repo_full_name, lockfile)
+          tree = client.create_tree(
+            repo_full_name,
+            [
+              {
+                path: 'Gemfile.lock',
+                mode: '100644',
+                type: 'blob',
+                sha: lockfile_blob_sha
+              }
+            ],
+            base_tree: branch_commit.commit.tree.sha
+          )
+
+          commit = client.create_commit(
+            repo_full_name,
+            '$ bundle update && bundle update --ruby',
+            tree.sha,
+            branch_ref.object.sha,
+            author: {
+              name: git_username,
+              email: git_email
+            }
+          )
+
+          client.update_ref(repo_full_name, "heads/#{branch}", commit.sha)
+
+          puts "#{branch} is created"
+
           branch
         end
         private_class_method :create_branch
@@ -178,11 +210,6 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           !!ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN']
         end
         private_class_method :enterprise?
-
-        def self.github_access_token
-          enterprise? ? ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] : ENV['GITHUB_ACCESS_TOKEN']
-        end
-        private_class_method :github_access_token
 
         # Get repository full name
         #
