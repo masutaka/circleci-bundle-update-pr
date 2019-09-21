@@ -120,10 +120,10 @@ module Circleci
                 path: 'Gemfile.lock',
                 mode: '100644',
                 type: 'blob',
-                sha: lockfile_blob_sha,
-              },
+                sha: lockfile_blob_sha
+              }
             ],
-            base_tree: branch_commit.commit.tree.sha,
+            base_tree: branch_commit.commit.tree.sha
           )
 
           commit = client.create_commit(
@@ -133,8 +133,8 @@ module Circleci
             branch_ref.object.sha,
             author: {
               name: git_username,
-              email: git_email,
-            },
+              email: git_email
+            }
           )
 
           client.update_ref(repo_full_name, "heads/#{branch}", commit.sha)
