@@ -211,11 +211,6 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
         end
         private_class_method :enterprise?
 
-        def self.github_access_token
-          enterprise? ? ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] : ENV['GITHUB_ACCESS_TOKEN']
-        end
-        private_class_method :github_access_token
-
         # Get repository full name
         #
         # @return [String] e.g. 'masutaka/circleci-bundle-update-pr'
