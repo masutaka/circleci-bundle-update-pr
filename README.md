@@ -189,7 +189,7 @@ jobs:
         run: |
           set -x
 
-          export CIRCLE_BRANCH=$(echo $GITHUB_BRANCH | sed -e 's!refs/heads/!!g')
+          export CIRCLE_BRANCH=$(echo $GITHUB_REF | sed -e 's!refs/heads/!!g')
           export CIRCLE_PROJECT_USERNAME=$(echo $GITHUB_REPOSITORY | cut -d "/" -f 1)
           export CIRCLE_PROJECT_REPONAME=$(echo $GITHUB_REPOSITORY | cut -d "/" -f 2)
 
@@ -198,8 +198,6 @@ jobs:
           circleci-bundle-update-pr "${GIT_USER_NAME}" "${GIT_USER_EMAIL}"
         env:
           GITHUB_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_BRANCH:       ${{ github.ref }}
-          GITHUB_REPOSITORY:   ${{ github.repository }}
           GIT_USER_NAME:       "your name"
           GIT_USER_EMAIL:      "ci@example.com"
 ```
