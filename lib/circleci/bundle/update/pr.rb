@@ -117,7 +117,7 @@ module Circleci
             repo_full_name,
             [
               {
-                path: 'Gemfile.lock',
+                path: lockfile_path,
                 mode: '100644',
                 type: 'blob',
                 sha: lockfile_blob_sha
@@ -236,6 +236,16 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
           @now ||= Time.now
         end
         private_class_method :now
+
+        # Get Gemfile.lock path relative to workdir
+        #
+        # @return [String]
+        def self.lockfile_path
+          workdir = Pathname.new(ENV['CIRCLE_WORKING_DIRECTORY'])
+          gemfile_lock = Pathname.new(File.expand_path('Gemfile.lock'))
+          gemfile_lock.relative_path_from(workdir).to_s
+        end
+        private_class_method :lockfile_path
       end
     end
   end
