@@ -56,9 +56,17 @@ describe Circleci::Bundle::Update::Pr do
   describe '.lockfile_path' do
     subject { Circleci::Bundle::Update::Pr.send(:lockfile_path) }
 
-    before { ENV['CIRCLE_WORKING_DIRECTORY'] = Dir.getwd }
+    let(:workdir_env) { Dir.getwd }
+
+    before { ENV['CIRCLE_WORKING_DIRECTORY'] = workdir_env }
 
     context 'when Gemfile.lock is in the working dir' do
+      it { is_expected.to eq 'Gemfile.lock' }
+    end
+
+    context "when ENV['CIRCLE_WORKING_DIRECTORY'] is not set" do
+      let(:workdir_env) {}
+
       it { is_expected.to eq 'Gemfile.lock' }
     end
 
