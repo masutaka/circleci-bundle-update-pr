@@ -63,7 +63,7 @@ jobs:
           name: bundle install
           command: |
             bundle check || bundle install --jobs=4 --retry=3
-            bundle clean
+            bundle clean --force
       - save_bundle_cache:
           ruby_version: << parameters.ruby_version >>
       - run: rubocop
