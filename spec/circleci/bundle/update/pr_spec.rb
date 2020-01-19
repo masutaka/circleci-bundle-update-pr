@@ -76,10 +76,14 @@ describe Circleci::Bundle::Update::Pr do
       let(:src_dir) { 'spec/tmp' }
 
       before do
-        FileUtils.mkdir_p(src_dir) && Dir.chdir(src_dir) && FileUtils.touch('Gemfile.lock')
+        FileUtils.mkdir_p(src_dir) && FileUtils.touch('Gemfile.lock')
       end
 
-      it { is_expected.to eq 'spec/tmp/Gemfile.lock' }
+      it 'is "spec/tmp/Gemfile.lock"' do
+        Dir.chdir(src_dir) do
+          expect(subject).to eq 'spec/tmp/Gemfile.lock'
+        end
+      end
     end
   end
 end
