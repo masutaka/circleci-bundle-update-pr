@@ -5,7 +5,7 @@ executors:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.3', '2.4', '2.5', '2.6']
+        enum: ['2.3', '2.4', '2.5', '2.6', '2.7']
     docker:
       - image: ruby:<< parameters.ruby_version >>-alpine
     working_directory: /work
@@ -26,7 +26,7 @@ commands:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.3', '2.4', '2.5', '2.6']
+        enum: ['2.3', '2.4', '2.5', '2.6', '2.7']
     steps:
       - restore_cache:
           name: Restore bundle cache
@@ -37,7 +37,7 @@ commands:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.3', '2.4', '2.5', '2.6']
+        enum: ['2.3', '2.4', '2.5', '2.6', '2.7']
     steps:
       - save_cache:
           name: Save bundle cache
@@ -50,7 +50,7 @@ jobs:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.3', '2.4', '2.5', '2.6']
+        enum: ['2.3', '2.4', '2.5', '2.6', '2.7']
     executor:
       name: default
       ruby_version: << parameters.ruby_version >>
@@ -71,12 +71,12 @@ jobs:
   continuous_bundle_update:
     executor:
       name: default
-      ruby_version: '2.6'
+      ruby_version: '2.7'
     steps:
       - setup_requirements
       - checkout
       - restore_bundle_cache:
-          ruby_version: '2.6'
+          ruby_version: '2.7'
       - run:
           name: Install edge circleci-bundle-update-pr
           command: |
@@ -102,6 +102,9 @@ workflows:
       - build:
           name: ruby-2.6
           ruby_version: '2.6'
+      - build:
+          name: ruby-2.7
+          ruby_version: '2.7'
   nightly:
     triggers:
       - schedule:
