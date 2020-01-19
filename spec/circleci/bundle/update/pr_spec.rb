@@ -60,6 +60,8 @@ describe Circleci::Bundle::Update::Pr do
 
     before { ENV['CIRCLE_WORKING_DIRECTORY'] = workdir_env }
 
+    after { ENV['CIRCLE_WORKING_DIRECTORY'] = nil }
+
     context 'when Gemfile.lock is in the working dir' do
       it { is_expected.to eq 'Gemfile.lock' }
     end
@@ -74,10 +76,17 @@ describe Circleci::Bundle::Update::Pr do
       let(:src_dir) { 'spec/tmp' }
 
       before do
-        FileUtils.mkdir_p(src_dir) && Dir.chdir(src_dir) && FileUtils.touch('Gemfile.lock')
+        FileUtils.mkdir_p(src_dir)
+        FileUtils.touch("#{src_dir}/Gemfile.lock")
       end
 
-      it { is_expected.to eq 'spec/tmp/Gemfile.lock' }
+      after { FileUtils.rm_rf(src_dir) }
+
+      it 'is "spec/tmp/Gemfile.lock"' do
+        Dir.chdir(src_dir) do
+          expect(subject).to eq 'spec/tmp/Gemfile.lock'
+        end
+      end
     end
   end
 end

@@ -11,6 +11,9 @@ Metrics:
 RSpec/DescribedClass:
   Enabled: false
 
+RSpec/NamedSubject:
+  Enabled: false
+
 Style/BlockComments:
   Exclude:
     - 'spec/spec_helper.rb'
