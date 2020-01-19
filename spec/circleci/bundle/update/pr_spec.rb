@@ -60,6 +60,8 @@ describe Circleci::Bundle::Update::Pr do
 
     before { ENV['CIRCLE_WORKING_DIRECTORY'] = workdir_env }
 
+    after { ENV['CIRCLE_WORKING_DIRECTORY'] = nil }
+
     context 'when Gemfile.lock is in the working dir' do
       it { is_expected.to eq 'Gemfile.lock' }
     end
