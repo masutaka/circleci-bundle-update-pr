@@ -76,8 +76,11 @@ describe Circleci::Bundle::Update::Pr do
       let(:src_dir) { 'spec/tmp' }
 
       before do
-        FileUtils.mkdir_p(src_dir) && FileUtils.touch('Gemfile.lock')
+        FileUtils.mkdir_p(src_dir)
+        FileUtils.touch("#{src_dir}/Gemfile.lock")
       end
+
+      after { FileUtils.rm_rf(src_dir) }
 
       it 'is "spec/tmp/Gemfile.lock"' do
         Dir.chdir(src_dir) do
