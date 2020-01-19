@@ -60,6 +60,9 @@ jobs:
       - restore_bundle_cache:
           ruby_version: << parameters.ruby_version >>
       - run:
+          name: install bundler
+          command: gem install -N bundler:1.17.2 # same version as Gemfile.lock
+      - run:
           name: bundle install
           command: |
             bundle check || bundle install --jobs=4 --retry=3
