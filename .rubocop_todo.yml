@@ -1,4 +1,4 @@
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Exclude:
     - 'lib/circleci/bundle/update/pr.rb'
 

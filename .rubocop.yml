@@ -5,6 +5,9 @@ AllCops:
   DisplayCopNames: true
   TargetRubyVersion: 2.3
 
+Layout/LineLength:
+  Enabled: false
+
 Metrics:
   Enabled: false
 
