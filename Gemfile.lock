@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    circleci-bundle-update-pr (1.17.0)
+    circleci-bundle-update-pr (1.18.0)
       compare_linker (>= 1.4.0)
       octokit
 
@@ -61,6 +61,7 @@ PLATFORMS
   x86_64-darwin-16
   x86_64-darwin-17
   x86_64-darwin-18
+  x86_64-darwin-19
 
 DEPENDENCIES
   bundler
