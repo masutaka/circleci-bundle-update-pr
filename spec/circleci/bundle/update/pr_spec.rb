@@ -58,9 +58,11 @@ describe Circleci::Bundle::Update::Pr do
 
     let(:workdir_env) { Dir.getwd }
 
-    before { ENV['CIRCLE_WORKING_DIRECTORY'] = workdir_env }
-
-    after { ENV['CIRCLE_WORKING_DIRECTORY'] = nil }
+    around do |e|
+      ENV['CIRCLE_WORKING_DIRECTORY'] = workdir_env
+      e.run
+      ENV['CIRCLE_WORKING_DIRECTORY'] = nil
+    end
 
     context 'when Gemfile.lock is in the working dir' do
       it { is_expected.to eq 'Gemfile.lock' }
@@ -80,12 +82,12 @@ describe Circleci::Bundle::Update::Pr do
       end
       let(:src_dir) { 'spec/tmp' }
 
-      before do
+      around do |e|
         FileUtils.mkdir_p(src_dir)
         FileUtils.touch("#{src_dir}/Gemfile.lock")
+        e.run
+        FileUtils.rm_rf(src_dir)
       end
-
-      after { FileUtils.rm_rf(src_dir) }
 
       it 'is "spec/tmp/Gemfile.lock"' do
         Dir.chdir(src_dir) do
@@ -97,12 +99,12 @@ describe Circleci::Bundle::Update::Pr do
     context 'when Gemfile.lock is in a nested dir' do
       let(:src_dir) { 'spec/tmp' }
 
-      before do
+      around do |e|
         FileUtils.mkdir_p(src_dir)
         FileUtils.touch("#{src_dir}/Gemfile.lock")
+        e.run
+        FileUtils.rm_rf(src_dir)
       end
-
-      after { FileUtils.rm_rf(src_dir) }
 
       it 'is "spec/tmp/Gemfile.lock"' do
         Dir.chdir(src_dir) do
