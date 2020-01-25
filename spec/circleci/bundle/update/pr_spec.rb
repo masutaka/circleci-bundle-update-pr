@@ -72,6 +72,28 @@ describe Circleci::Bundle::Update::Pr do
       it { is_expected.to eq 'Gemfile.lock' }
     end
 
+    context "when ENV['CIRCLE_WORKING_DIRECTORY'] is relative path" do
+      let(:workdir_env) do
+        project_dir = Pathname.getwd.to_s
+        home_dir = Pathname.new(ENV['HOME']).to_s
+        project_dir.sub(home_dir, '~')
+      end
+      let(:src_dir) { 'spec/tmp' }
+
+      before do
+        FileUtils.mkdir_p(src_dir)
+        FileUtils.touch("#{src_dir}/Gemfile.lock")
+      end
+
+      after { FileUtils.rm_rf(src_dir) }
+
+      it 'is "spec/tmp/Gemfile.lock"' do
+        Dir.chdir(src_dir) do
+          expect(subject).to eq 'spec/tmp/Gemfile.lock'
+        end
+      end
+    end
+
     context 'when Gemfile.lock is in a nested dir' do
       let(:src_dir) { 'spec/tmp' }
 

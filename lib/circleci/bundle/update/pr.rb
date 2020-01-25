@@ -241,10 +241,9 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
         #
         # @return [String]
         def self.lockfile_path
-          workdir_env = ENV['CIRCLE_WORKING_DIRECTORY']
-          return 'Gemfile.lock' unless workdir_env
+          return 'Gemfile.lock' unless ENV['CIRCLE_WORKING_DIRECTORY']
 
-          workdir = Pathname.new(workdir_env)
+          workdir = Pathname.new(File.expand_path(ENV['CIRCLE_WORKING_DIRECTORY']))
           gemfile_lock = Pathname.new(File.expand_path('Gemfile.lock'))
           gemfile_lock.relative_path_from(workdir).to_s
         end
