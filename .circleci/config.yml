@@ -43,7 +43,7 @@ commands:
           name: Save bundle cache
           key: gems-ruby<< parameters.ruby_version >>-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
           paths:
-            - /usr/local/bundle
+            - /work/vendor/bundle
 
 jobs:
   build:
@@ -65,12 +65,12 @@ jobs:
       - run:
           name: bundle install
           command: |
-            bundle check || bundle install --jobs=4 --retry=3
-            bundle clean --force
+            bundle check || bundle install --jobs=4 --retry=3 --path=vendor/bundle
+            bundle clean
       - save_bundle_cache:
           ruby_version: << parameters.ruby_version >>
-      - run: rubocop
-      - run: rspec
+      - run: bundle exec rubocop
+      - run: bundle exec rspec
   continuous_bundle_update:
     executor:
       name: default
