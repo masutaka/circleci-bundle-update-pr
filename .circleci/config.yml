@@ -5,7 +5,7 @@ executors:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.3', '2.4', '2.5', '2.6', '2.7']
+        enum: ['2.4', '2.5', '2.6', '2.7']
     docker:
       - image: ruby:<< parameters.ruby_version >>-alpine
     working_directory: /work
@@ -26,7 +26,7 @@ commands:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.3', '2.4', '2.5', '2.6', '2.7']
+        enum: ['2.4', '2.5', '2.6', '2.7']
     steps:
       - restore_cache:
           name: Restore bundle cache
@@ -37,7 +37,7 @@ commands:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.3', '2.4', '2.5', '2.6', '2.7']
+        enum: ['2.4', '2.5', '2.6', '2.7']
     steps:
       - save_cache:
           name: Save bundle cache
@@ -50,7 +50,7 @@ jobs:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.3', '2.4', '2.5', '2.6', '2.7']
+        enum: ['2.4', '2.5', '2.6', '2.7']
     executor:
       name: default
       ruby_version: << parameters.ruby_version >>
@@ -93,9 +93,6 @@ workflows:
   version: 2
   ordinary:
     jobs:
-      - build:
-          name: ruby-2.3
-          ruby_version: '2.3'
       - build:
           name: ruby-2.4
           ruby_version: '2.4'
