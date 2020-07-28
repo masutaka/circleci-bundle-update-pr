@@ -44,6 +44,11 @@ commands:
           key: gems-ruby<< parameters.ruby_version >>-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
           paths:
             - /work/vendor/bundle
+  install_bundler:
+    steps:
+      - run:
+          name: install bundler
+          command: gem install -N bundler:1.17.3 # same version as Gemfile.lock
 
 jobs:
   build:
@@ -59,9 +64,7 @@ jobs:
       - checkout
       - restore_bundle_cache:
           ruby_version: << parameters.ruby_version >>
-      - run:
-          name: install bundler
-          command: gem install -N bundler:1.17.3 # same version as Gemfile.lock
+      - install_bundler
       - run:
           name: bundle install
           command: |
@@ -80,9 +83,7 @@ jobs:
       - checkout
       - restore_bundle_cache:
           ruby_version: '2.7'
-      - run:
-          name: install bundler
-          command: gem install -N bundler:1.17.3 # same version as Gemfile.lock
+      - install_bundler
       - run:
           name: Install edge circleci-bundle-update-pr
           command: |
