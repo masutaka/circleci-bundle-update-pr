@@ -19,6 +19,8 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ['lib']
 
+  spec.required_ruby_version = '>= 2.4.0'
+
   spec.add_dependency 'compare_linker', '>= 1.4.0'
   spec.add_dependency 'octokit'
 
