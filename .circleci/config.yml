@@ -25,14 +25,8 @@ commands:
   setup_requirements:
     steps:
       - run:
-          name: Install System Dependencies
-          command: |
-            # See also https://circleci.com/docs/2.0/custom-images/#adding-required-and-custom-tools-or-files
-            apk add --update-cache --no-cache --no-progress git openssh-client tar gzip ca-certificates \
-              build-base tzdata
-      - run:
           name: Set timezone to Asia/Tokyo
-          command: cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+          command: sudo cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
   restore_bundle_cache:
     parameters:
       ruby_version:
@@ -54,7 +48,7 @@ commands:
           name: Save bundle cache
           key: gems-ruby<< parameters.ruby_version >>-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "Gemfile.lock" }}
           paths:
-            - /work/vendor/bundle
+            - ~/repo/vendor/bundle
   install_bundler:
     steps:
       - run:
