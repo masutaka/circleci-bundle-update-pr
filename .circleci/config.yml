@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  pushover: masutaka/pushover@dev:beta2
+
 executors:
   default:
     parameters:
@@ -11,6 +14,14 @@ executors:
     working_directory: /work
 
 commands:
+  notify_on_failure_on_default_branch:
+    steps:
+      - pushover/notify:
+          title: "Failed: ${CIRCLE_PROJECT_REPONAME}'s job (${CIRCLE_JOB})"
+          message: "${CIRCLE_USERNAME:Bot}'s build (#${CIRCLE_BUILD_NUM}) in ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} (${CIRCLE_BRANCH})"
+          priority: 1 # high
+          fail_only: true
+          only_for_branches: master
   setup_requirements:
     steps:
       - run:
@@ -74,6 +85,7 @@ jobs:
           ruby_version: << parameters.ruby_version >>
       - run: bundle exec rubocop
       - run: bundle exec rspec
+      - notify_on_failure_on_default_branch
   continuous_bundle_update:
     executor:
       name: default
@@ -92,6 +104,7 @@ jobs:
       - deploy:
           name: Run circleci-bundle-update-pr
           command: circleci-bundle-update-pr CircleCI circleci@example.com $CIRCLE_BRANCH
+      - notify_on_failure_on_default_branch
 
 workflows:
   version: 2
