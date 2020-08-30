@@ -25,6 +25,12 @@ commands:
   setup_requirements:
     steps:
       - run:
+          name: Install System Dependencies
+          command: |
+            # for cimg/ruby:2.4
+            sudo apt update
+            sudo apt install tzdata
+      - run:
           name: Set timezone to Asia/Tokyo
           command: sudo cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
   restore_bundle_cache:
