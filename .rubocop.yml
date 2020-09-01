@@ -3,6 +3,7 @@ require: rubocop-rspec
 
 AllCops:
   DisplayCopNames: true
+  NewCops: enable
   TargetRubyVersion: 2.4
 
 Layout/LineLength:
