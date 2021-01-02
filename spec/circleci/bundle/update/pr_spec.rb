@@ -69,7 +69,7 @@ describe Circleci::Bundle::Update::Pr do
     end
 
     context "when ENV['CIRCLE_WORKING_DIRECTORY'] is not set" do
-      let(:workdir_env) {}
+      let(:workdir_env) { nil }
 
       it { is_expected.to eq 'Gemfile.lock' }
     end
