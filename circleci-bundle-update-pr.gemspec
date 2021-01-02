@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'parallel', '< 1.20.0' # parallel-1.20.0 requires ruby version >= 2.5, which used by rubocop
   spec.add_development_dependency 'rake'
-  spec.add_development_dependency 'rspec', '~> 3.7'
+  spec.add_development_dependency 'rspec'
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'rubocop-rspec'
 end

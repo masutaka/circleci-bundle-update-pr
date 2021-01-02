@@ -77,7 +77,7 @@ DEPENDENCIES
   circleci-bundle-update-pr!
   parallel (< 1.20.0)
   rake
-  rspec (~> 3.7)
+  rspec
   rubocop
   rubocop-rspec
 
