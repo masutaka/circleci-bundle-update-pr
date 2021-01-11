@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  pushover: masutaka/pushover@dev:beta3
+  pushover: masutaka/pushover@dev:beta5
 
 executors:
   default:
@@ -16,11 +16,10 @@ executors:
 commands:
   notify_on_failure_on_default_branch:
     steps:
-      - pushover/notify:
+      - pushover/notify-on-failure:
           title: "Failed: ${CIRCLE_PROJECT_REPONAME}'s job (${CIRCLE_JOB})"
           message: "failed ${CIRCLE_USERNAME:Bot}'s build (#${CIRCLE_BUILD_NUM}) in ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME} (${CIRCLE_BRANCH})"
           priority: 1 # high
-          fail_only: true
           only_for_branches: master
   setup_requirements:
     steps:
