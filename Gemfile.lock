@@ -46,15 +46,15 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.1)
-    rubocop (1.7.0)
+    rubocop (1.8.1)
       parallel (~> 1.10)
-      parser (>= 2.7.1.5)
+      parser (>= 3.0.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml
       rubocop-ast (>= 1.2.0, < 2.0)
       ruby-progressbar (~> 1.7)
-      unicode-display_width (>= 1.4.0, < 2.0)
+      unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.4.0)
       parser (>= 2.7.1.5)
     rubocop-rspec (2.1.0)
@@ -65,7 +65,7 @@ GEM
     sawyer (0.8.2)
       addressable (>= 2.3.5)
       faraday (> 0.8, < 2.0)
-    unicode-display_width (1.7.0)
+    unicode-display_width (2.0.0)
 
 PLATFORMS
   ruby
