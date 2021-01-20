@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  pushover: masutaka/pushover@dev:beta6
+  pushover: masutaka/pushover@2
 
 executors:
   default:
