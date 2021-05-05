@@ -46,7 +46,7 @@ jobs:
     # snip
   continuous_bundle_update:
     docker:
-      - image: ruby:2.4.2-alpine
+      - image: ruby:3.0.1-alpine
     working_directory: /work
     steps:
       - run:
