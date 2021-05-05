@@ -8,7 +8,7 @@ executors:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.4', '2.5', '2.6', '2.7', '3.0']
+        enum: ['2.5', '2.6', '2.7', '3.0']
     docker:
       - image: cimg/ruby:<< parameters.ruby_version >>
     working_directory: ~/repo
@@ -17,19 +17,13 @@ commands:
   setup_requirements:
     steps:
       - run:
-          name: Install System Dependencies
-          command: |
-            # for cimg/ruby:2.4
-            sudo apt update -q
-            sudo apt install -q tzdata
-      - run:
           name: Set timezone to Asia/Tokyo
           command: sudo cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
   restore_bundle_cache:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.4', '2.5', '2.6', '2.7', '3.0']
+        enum: ['2.5', '2.6', '2.7', '3.0']
     steps:
       - restore_cache:
           name: Restore bundle cache
@@ -40,7 +34,7 @@ commands:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.4', '2.5', '2.6', '2.7', '3.0']
+        enum: ['2.5', '2.6', '2.7', '3.0']
     steps:
       - save_cache:
           name: Save bundle cache
@@ -58,7 +52,7 @@ jobs:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.4', '2.5', '2.6', '2.7', '3.0']
+        enum: ['2.5', '2.6', '2.7', '3.0']
     executor:
       name: default
       ruby_version: << parameters.ruby_version >>
@@ -102,9 +96,6 @@ workflows:
   version: 2
   ordinary:
     jobs:
-      - build:
-          name: ruby-2.4
-          ruby_version: '2.4'
       - build:
           name: ruby-2.5
           ruby_version: '2.5'
