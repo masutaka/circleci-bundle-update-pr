@@ -89,7 +89,7 @@ jobs:
             gem specific_install https://github.com/masutaka/circleci-bundle-update-pr.git
       - deploy:
           name: Run circleci-bundle-update-pr
-          command: circleci-bundle-update-pr CircleCI circleci@example.com $CIRCLE_BRANCH
+          command: circleci-bundle-update-pr CircleCI circleci@example.com $CIRCLE_BRANCH -d
       - pushover/notify-on-failure
 
 workflows:
