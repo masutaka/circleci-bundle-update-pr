@@ -54,7 +54,7 @@ describe Circleci::Bundle::Update::Pr::Note do
 
     context 'with .circleci/BUNDLE_UPDATE_NOTE.md' do
       before do
-        File.open('.circleci/BUNDLE_UPDATE_NOTE.md', 'w') { |f| f.write('I am .circleci/BUNDLE_UPDATE_NOTE.md') }
+        File.write('.circleci/BUNDLE_UPDATE_NOTE.md', 'I am .circleci/BUNDLE_UPDATE_NOTE.md')
       end
 
       it { is_expected.to eq 'I am .circleci/BUNDLE_UPDATE_NOTE.md' }
@@ -62,7 +62,7 @@ describe Circleci::Bundle::Update::Pr::Note do
 
     context 'with CIRCLECI_BUNDLE_UPDATE_NOTE.md' do
       before do
-        File.open('CIRCLECI_BUNDLE_UPDATE_NOTE.md', 'w') { |f| f.write('I am CIRCLECI_BUNDLE_UPDATE_NOTE.md') }
+        File.write('CIRCLECI_BUNDLE_UPDATE_NOTE.md', 'I am CIRCLECI_BUNDLE_UPDATE_NOTE.md')
       end
 
       it { is_expected.to eq 'I am CIRCLECI_BUNDLE_UPDATE_NOTE.md' }
@@ -70,8 +70,8 @@ describe Circleci::Bundle::Update::Pr::Note do
 
     context 'with .circleci/BUNDLE_UPDATE_NOTE.md and CIRCLECI_BUNDLE_UPDATE_NOTE.md' do
       before do
-        File.open('.circleci/BUNDLE_UPDATE_NOTE.md', 'w') { |f| f.write('I am .circleci/BUNDLE_UPDATE_NOTE.md') }
-        File.open('CIRCLECI_BUNDLE_UPDATE_NOTE.md', 'w') { |f| f.write('I am CIRCLECI_BUNDLE_UPDATE_NOTE.md') }
+        File.write('.circleci/BUNDLE_UPDATE_NOTE.md', 'I am .circleci/BUNDLE_UPDATE_NOTE.md')
+        File.write('CIRCLECI_BUNDLE_UPDATE_NOTE.md', 'I am CIRCLECI_BUNDLE_UPDATE_NOTE.md')
       end
 
       it { is_expected.to eq 'I am .circleci/BUNDLE_UPDATE_NOTE.md' }
