@@ -16,8 +16,8 @@ module Circleci
             return
           end
 
-          unless target_branch?(running_branch: ENV['CIRCLE_BRANCH'], target_branches: git_branches)
-            puts "Skip because CIRCLE_BRANCH[#{ENV['CIRCLE_BRANCH']}] is not included in target branches[#{git_branches.join(',')}]."
+          unless target_branch?(running_branch: ENV.fetch('CIRCLE_BRANCH', nil), target_branches: git_branches)
+            puts "Skip because CIRCLE_BRANCH[#{ENV.fetch('CIRCLE_BRANCH', nil)}] is not included in target branches[#{git_branches.join(',')}]."
             return
           end
 
@@ -37,17 +37,17 @@ module Circleci
           request_review(pull_request[:number], reviewers) if reviewers
         end
 
-        BRANCH_PREFIX = ENV['BRANCH_PREFIX'] || 'bundle-update-'.freeze
-        TITLE_PREFIX = ENV['TITLE_PREFIX'] || 'bundle update at '.freeze
+        BRANCH_PREFIX = ENV.fetch('BRANCH_PREFIX', nil) || 'bundle-update-'.freeze
+        TITLE_PREFIX = ENV.fetch('TITLE_PREFIX', nil) || 'bundle update at '.freeze
 
         def self.raise_if_env_unvalid!
           raise "$CIRCLE_PROJECT_USERNAME isn't set" unless ENV['CIRCLE_PROJECT_USERNAME']
           raise "$CIRCLE_PROJECT_REPONAME isn't set" unless ENV['CIRCLE_PROJECT_REPONAME']
           raise "$GITHUB_ACCESS_TOKEN isn't set" unless ENV['GITHUB_ACCESS_TOKEN']
-          if ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] && !ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT']
+          if ENV.fetch('ENTERPRISE_OCTOKIT_ACCESS_TOKEN', nil) && !ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT']
             raise "$ENTERPRISE_OCTOKIT_API_ENDPOINT isn't set"
           end
-          if !ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] && ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT']
+          if !ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'] && ENV.fetch('ENTERPRISE_OCTOKIT_API_ENDPOINT', nil)
             raise "$ENTERPRISE_OCTOKIT_ACCESS_TOKEN isn't set"
           end
         end
@@ -106,7 +106,7 @@ module Circleci
         def self.create_branch(git_username, git_email)
           branch = "#{BRANCH_PREFIX}#{now.strftime('%Y%m%d%H%M%S')}"
 
-          current_ref = client.ref(repo_full_name, "heads/#{ENV['CIRCLE_BRANCH']}")
+          current_ref = client.ref(repo_full_name, "heads/#{ENV.fetch('CIRCLE_BRANCH', nil)}")
           branch_ref = client.create_ref(repo_full_name, "heads/#{branch}", current_ref.object.sha)
 
           branch_commit = client.commit(repo_full_name, branch_ref.object.sha)
@@ -151,7 +151,7 @@ module Circleci
         # @return [Sawyer::Resource] The newly created pull request
         def self.create_pull_request(branch)
           title = "#{TITLE_PREFIX}#{now.strftime('%Y-%m-%d %H:%M:%S %Z')}"
-          client.create_pull_request(repo_full_name, ENV['CIRCLE_BRANCH'], branch, title)
+          client.create_pull_request(repo_full_name, ENV.fetch('CIRCLE_BRANCH', nil), branch, title)
         end
         private_class_method :create_pull_request
 
@@ -161,7 +161,7 @@ module Circleci
         private_class_method :add_labels
 
         def self.update_pull_request_body(pr_number)
-          ENV['OCTOKIT_ACCESS_TOKEN'] = ENV['GITHUB_ACCESS_TOKEN']
+          ENV['OCTOKIT_ACCESS_TOKEN'] = ENV.fetch('GITHUB_ACCESS_TOKEN', nil)
           compare_linker = CompareLinker.new(repo_full_name, pr_number)
           compare_linker.formatter = CompareLinker::Formatter::Markdown.new
 
@@ -198,10 +198,10 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
 
         def self.client
           if enterprise?
-            Octokit::Client.new(access_token: ENV['ENTERPRISE_OCTOKIT_ACCESS_TOKEN'],
-                                api_endpoint: ENV['ENTERPRISE_OCTOKIT_API_ENDPOINT'])
+            Octokit::Client.new(access_token: ENV.fetch('ENTERPRISE_OCTOKIT_ACCESS_TOKEN', nil),
+                                api_endpoint: ENV.fetch('ENTERPRISE_OCTOKIT_API_ENDPOINT', nil))
           else
-            Octokit::Client.new(access_token: ENV['GITHUB_ACCESS_TOKEN'])
+            Octokit::Client.new(access_token: ENV.fetch('GITHUB_ACCESS_TOKEN', nil))
           end
         end
         private_class_method :client
@@ -215,15 +215,15 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
         #
         # @return [String] e.g. 'masutaka/circleci-bundle-update-pr'
         def self.repo_full_name
-          @repo_full_name ||= "#{ENV['CIRCLE_PROJECT_USERNAME']}/#{ENV['CIRCLE_PROJECT_REPONAME']}"
+          @repo_full_name ||= "#{ENV.fetch('CIRCLE_PROJECT_USERNAME', nil)}/#{ENV.fetch('CIRCLE_PROJECT_REPONAME', nil)}"
         end
         private_class_method :repo_full_name
 
         def self.github_host
           # A format like https://github.com/masutaka/circleci-bundle-update-pr.git
-          return Regexp.last_match(1) if ENV['CIRCLE_REPOSITORY_URL'] =~ %r{https://(.+?)/}
+          return Regexp.last_match(1) if ENV.fetch('CIRCLE_REPOSITORY_URL', nil) =~ %r{https://(.+?)/}
           # A format like git@github.com:masutaka/compare_linker.git
-          return Regexp.last_match(1) if ENV['CIRCLE_REPOSITORY_URL'] =~ /([^@]+?):/
+          return Regexp.last_match(1) if ENV.fetch('CIRCLE_REPOSITORY_URL', nil) =~ /([^@]+?):/
 
           'github.com'
         end
@@ -241,7 +241,7 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
         #
         # @return [String]
         def self.lockfile_path
-          workdir_env = ENV['CIRCLE_WORKING_DIRECTORY']
+          workdir_env = ENV.fetch('CIRCLE_WORKING_DIRECTORY', nil)
           return 'Gemfile.lock' unless workdir_env
 
           workdir = Pathname.new(workdir_env).expand_path
