@@ -15,7 +15,7 @@ opt.parse!(ARGV)
 Circleci::Bundle::Update::Pr.create_if_needed(
   git_username: ARGV.shift,
   git_email: ARGV.shift,
-  git_branches: ARGV.empty? ? ['master', 'main'] : ARGV,
+  git_branches: ARGV.empty? ? %w[master main] : ARGV,
   assignees: options[:assignees],
   reviewers: options[:reviewers],
   labels: options[:labels],

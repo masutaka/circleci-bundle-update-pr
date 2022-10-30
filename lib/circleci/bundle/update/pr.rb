@@ -7,7 +7,7 @@ module Circleci
   module Bundle
     module Update
       module Pr
-        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: ['master', 'main'],
+        def self.create_if_needed(git_username: nil, git_email: nil, git_branches: %w[master main],
                                   assignees: nil, reviewers: nil, labels: nil, allow_dup_pr: false)
           raise_if_env_unvalid!
 
