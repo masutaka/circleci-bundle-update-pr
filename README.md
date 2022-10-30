@@ -101,7 +101,7 @@ General usage:
 $ circleci-bundle-update-pr <git username> <git email address>
 ```
 
-By default, it works only on master branch, but you can also explicitly specify any branches rather than only master branch by adding them to the arguments.
+By default, it works only on master or main branches, but you can also explicitly specify any branches rather than only these branches by adding them to the arguments.
 
 ```
 $ circleci-bundle-update-pr <git username> <git email address> master develop topic
