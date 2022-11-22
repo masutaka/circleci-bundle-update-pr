@@ -75,11 +75,7 @@ describe Circleci::Bundle::Update::Pr do
     end
 
     context "when ENV['CIRCLE_WORKING_DIRECTORY'] is relative path" do
-      let(:workdir_env) do
-        project_dir = Pathname.getwd.to_s
-        home_dir = Pathname.new(ENV.fetch('HOME', nil)).to_s
-        project_dir.sub(home_dir, '~')
-      end
+      let(:workdir_env) { Pathname.getwd.to_s.sub(Dir.home, '~') }
       let(:src_dir) { 'spec/tmp' }
 
       around do |e|
