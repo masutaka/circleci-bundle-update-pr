@@ -79,7 +79,6 @@ PLATFORMS
 DEPENDENCIES
   bundler
   circleci-bundle-update-pr!
-  parallel (< 1.20.0)
   rake
   rspec
   rubocop
