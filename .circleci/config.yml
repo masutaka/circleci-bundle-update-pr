@@ -8,7 +8,7 @@ executors:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.5', '2.6', '2.7', '3.0', '3.1']
+        enum: ['2.7', '3.0', '3.1']
     docker:
       - image: cimg/ruby:<< parameters.ruby_version >>
     working_directory: ~/repo
@@ -23,7 +23,7 @@ commands:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.5', '2.6', '2.7', '3.0', '3.1']
+        enum: ['2.7', '3.0', '3.1']
     steps:
       - restore_cache:
           name: Restore bundle cache
@@ -34,7 +34,7 @@ commands:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.5', '2.6', '2.7', '3.0', '3.1']
+        enum: ['2.7', '3.0', '3.1']
     steps:
       - save_cache:
           name: Save bundle cache
@@ -47,7 +47,7 @@ jobs:
     parameters:
       ruby_version:
         type: enum
-        enum: ['2.5', '2.6', '2.7', '3.0', '3.1']
+        enum: ['2.7', '3.0', '3.1']
     executor:
       name: default
       ruby_version: << parameters.ruby_version >>
@@ -59,7 +59,8 @@ jobs:
       - run:
           name: bundle install
           command: |
-            bundle check || bundle install --jobs=4 --retry=3 --path=vendor/bundle
+            bundle config set --local path vendor/bundle
+            bundle check || bundle install --jobs=4 --retry=3
             bundle clean
       - save_bundle_cache:
           ruby_version: << parameters.ruby_version >>
@@ -89,12 +90,6 @@ workflows:
   version: 2
   ordinary:
     jobs:
-      - build:
-          name: ruby-2.5
-          ruby_version: '2.5'
-      - build:
-          name: ruby-2.6
-          ruby_version: '2.6'
       - build:
           name: ruby-2.7
           ruby_version: '2.7'
