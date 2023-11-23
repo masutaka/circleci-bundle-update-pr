@@ -1,11 +1,11 @@
 # Circleci::Bundle::Update::Pr
 
-[![Build Status](https://img.shields.io/circleci/project/github/masutaka/circleci-bundle-update-pr/master.svg?logo=circieci&style=flat-square)][circleci]
+[![Build Status](https://img.shields.io/circleci/project/github/masutaka/circleci-bundle-update-pr/main.svg?logo=circieci&style=flat-square)][circleci]
 [![License](https://img.shields.io/github/license/masutaka/circleci-bundle-update-pr.svg?style=flat-square)][license]
 [![Gem](https://img.shields.io/gem/v/circleci-bundle-update-pr.svg?logo=ruby&style=flat-square)][gem-link]
 
 [circleci]: https://circleci.com/gh/masutaka/circleci-bundle-update-pr
-[license]: https://github.com/masutaka/circleci-bundle-update-pr/blob/master/LICENSE.txt
+[license]: https://github.com/masutaka/circleci-bundle-update-pr/blob/main/LICENSE.txt
 [gem-link]: http://badge.fury.io/rb/circleci-bundle-update-pr
 
 `circleci-bundle-update-pr` is an automation script for continuous bundle update and for sending a pull request using [`Scheduling a Workflow of CircleCI`](https://circleci.com/docs/2.0/workflows/#scheduling-a-workflow).
@@ -84,7 +84,7 @@ workflows:
           cron: "00 10 * * 5"
           filters:
             branches:
-              only: master
+              only: main
     jobs:
       - continuous_bundle_update
 ```
@@ -104,7 +104,7 @@ $ circleci-bundle-update-pr <git username> <git email address>
 By default, it works only on master or main branches, but you can also explicitly specify any branches rather than only these branches by adding them to the arguments.
 
 ```
-$ circleci-bundle-update-pr <git username> <git email address> master develop topic
+$ circleci-bundle-update-pr <git username> <git email address> main develop topic
 ```
 
 You can also add the following options:
