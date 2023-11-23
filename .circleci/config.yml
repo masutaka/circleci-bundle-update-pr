@@ -108,6 +108,6 @@ workflows:
           cron: "00 10 1 * *"
           filters:
             branches:
-              only: master
+              only: main
     jobs:
       - continuous_bundle_update
