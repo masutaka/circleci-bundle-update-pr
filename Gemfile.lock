@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    circleci-bundle-update-pr (4.0.7)
+    circleci-bundle-update-pr (4.0.8)
       compare_linker (>= 1.4.0)
       octokit
 
