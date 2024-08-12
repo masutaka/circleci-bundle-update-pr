@@ -3,12 +3,12 @@
 [![CircleCI Status](https://img.shields.io/circleci/build/github/masutaka/circleci-bundle-update-pr/main?style=flat-square&logo=circieci&label=CircleCI)][circleci]
 [![CodeQL Status](https://img.shields.io/github/actions/workflow/status/masutaka/circleci-bundle-update-pr/github-code-scanning%2Fcodeql?branch=main&style=flat-square&logo=githubactions&label=CodeQL)][codeql]
 [![GitHub License](https://img.shields.io/github/license/masutaka/circleci-bundle-update-pr?style=flat-square&label=License)][license]
-[![Gem](https://img.shields.io/gem/v/circleci-bundle-update-pr.svg?logo=ruby&style=flat-square)][gem-link]
+[![Gem Version](https://img.shields.io/gem/v/circleci-bundle-update-pr?style=flat-square&logo=rubygems&label=Gem)][gem]
 
 [circleci]: https://app.circleci.com/pipelines/github/masutaka/circleci-bundle-update-pr?branch=main
 [codeql]: https://github.com/masutaka/circleci-bundle-update-pr/actions/workflows/github-code-scanning/codeql?query=branch%3Amain
 [license]: https://github.com/masutaka/circleci-bundle-update-pr/blob/main/LICENSE.txt
-[gem-link]: http://badge.fury.io/rb/circleci-bundle-update-pr
+[gem]: https://rubygems.org/gems/circleci-bundle-update-pr
 
 `circleci-bundle-update-pr` is an automation script for continuous bundle update and for sending a pull request using [`Scheduling a Workflow of CircleCI`](https://circleci.com/docs/2.0/workflows/#scheduling-a-workflow).
 
