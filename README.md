@@ -1,11 +1,11 @@
 # Circleci::Bundle::Update::Pr
 
-[![Build Status](https://img.shields.io/circleci/project/github/masutaka/circleci-bundle-update-pr/main.svg?logo=circieci&style=flat-square)][circleci]
+[![CircleCI Status](https://img.shields.io/circleci/build/github/masutaka/circleci-bundle-update-pr/main?style=flat-square&logo=circieci&label=CircleCI)][circleci]
 [![CodeQL Status](https://img.shields.io/github/actions/workflow/status/masutaka/circleci-bundle-update-pr/github-code-scanning%2Fcodeql?branch=main&style=flat-square&logo=githubactions&label=CodeQL)][codeql]
 [![License](https://img.shields.io/github/license/masutaka/circleci-bundle-update-pr.svg?style=flat-square)][license]
 [![Gem](https://img.shields.io/gem/v/circleci-bundle-update-pr.svg?logo=ruby&style=flat-square)][gem-link]
 
-[circleci]: https://circleci.com/gh/masutaka/circleci-bundle-update-pr
+[circleci]: https://app.circleci.com/pipelines/github/masutaka/circleci-bundle-update-pr?branch=main
 [codeql]: https://github.com/masutaka/circleci-bundle-update-pr/actions/workflows/github-code-scanning/codeql?query=branch%3Amain
 [license]: https://github.com/masutaka/circleci-bundle-update-pr/blob/main/LICENSE.txt
 [gem-link]: http://badge.fury.io/rb/circleci-bundle-update-pr
