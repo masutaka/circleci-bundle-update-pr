@@ -211,3 +211,11 @@ jobs:
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
+## Contributors
+
+<a href="https://github.com/masutaka/circleci-bundle-update-pr/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=masutaka/circleci-bundle-update-pr" />
+</a>
+
+*Made with [contrib.rocks](https://contrib.rocks).*
