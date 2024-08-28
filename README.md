@@ -3,13 +3,11 @@
 [![CircleCI Status](https://img.shields.io/circleci/build/github/masutaka/circleci-bundle-update-pr/main?style=flat-square&logo=circieci&label=CircleCI)][circleci]
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmasutaka%2Fcircleci-bundle-update-pr.svg?type=shield)][fossa]
 [![CodeQL Status](https://img.shields.io/github/actions/workflow/status/masutaka/circleci-bundle-update-pr/github-code-scanning%2Fcodeql?branch=main&style=flat-square&logo=githubactions&label=CodeQL)][codeql]
-[![GitHub License](https://img.shields.io/github/license/masutaka/circleci-bundle-update-pr?style=flat-square&label=License)][license]
 [![Gem Version](https://img.shields.io/gem/v/circleci-bundle-update-pr?style=flat-square&logo=rubygems&label=Gem)][gem]
 
 [circleci]: https://app.circleci.com/pipelines/github/masutaka/circleci-bundle-update-pr?branch=main
 [fossa]: https://app.fossa.com/projects/git%2Bgithub.com%2Fmasutaka%2Fcircleci-bundle-update-pr?ref=badge_shield
 [codeql]: https://github.com/masutaka/circleci-bundle-update-pr/actions/workflows/github-code-scanning/codeql?query=branch%3Amain
-[license]: https://github.com/masutaka/circleci-bundle-update-pr/blob/main/LICENSE.txt
 [gem]: https://rubygems.org/gems/circleci-bundle-update-pr
 
 `circleci-bundle-update-pr` is an automation script for continuous bundle update and for sending a pull request using [`Scheduling a Workflow of CircleCI`](https://circleci.com/docs/2.0/workflows/#scheduling-a-workflow).
@@ -221,7 +219,6 @@ jobs:
 </a>
 
 *Made with [contrib.rocks](https://contrib.rocks).*
-
 
 ## License
 
