@@ -1,6 +1,7 @@
 # Circleci::Bundle::Update::Pr
 
-[![CircleCI Status](https://img.shields.io/circleci/build/github/masutaka/circleci-bundle-update-pr/main?style=flat-square&logo=circieci&label=CircleCI)][circleci]
+[![CircleCI Status](https://img.shields.io/circleci/build/github/masutaka/circleci-bundle-update-pr/main?style=flat-square&logo=circieci&label=CircleCI)][![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmasutaka%2Fcircleci-bundle-update-pr.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmasutaka%2Fcircleci-bundle-update-pr?ref=badge_shield)
+[circleci]
 [![CodeQL Status](https://img.shields.io/github/actions/workflow/status/masutaka/circleci-bundle-update-pr/github-code-scanning%2Fcodeql?branch=main&style=flat-square&logo=githubactions&label=CodeQL)][codeql]
 [![GitHub License](https://img.shields.io/github/license/masutaka/circleci-bundle-update-pr?style=flat-square&label=License)][license]
 [![Gem Version](https://img.shields.io/gem/v/circleci-bundle-update-pr?style=flat-square&logo=rubygems&label=Gem)][gem]
@@ -219,3 +220,7 @@ jobs:
 </a>
 
 *Made with [contrib.rocks](https://contrib.rocks).*
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fmasutaka%2Fcircleci-bundle-update-pr.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fmasutaka%2Fcircleci-bundle-update-pr?ref=badge_large)
