@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     circleci-bundle-update-pr (5.0.10)
-      compare_linker (>= 1.4.5)
+      compare_linker (>= 1.4.10)
       octokit
 
 GEM
@@ -12,9 +12,10 @@ GEM
       public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.2)
     base64 (0.2.0)
-    compare_linker (1.4.8)
+    compare_linker (1.4.10)
       base64
       httpclient
+      mutex_m
       octokit
       ostruct
     diff-lcs (1.5.1)
@@ -28,6 +29,7 @@ GEM
     json (2.9.1)
     language_server-protocol (3.17.0.3)
     logger (1.6.4)
+    mutex_m (0.3.0)
     net-http (0.6.0)
       uri
     octokit (9.2.0)
