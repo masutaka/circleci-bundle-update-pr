@@ -156,6 +156,10 @@ Powered by [circleci-bundle-update-pr](https://rubygems.org/gems/circleci-bundle
 `.circleci/BUNDLE_UPDATE_NOTE.md` or `CIRCLECI_BUNDLE_UPDATE_NOTE.md`, either one is OK. It gives priority `.circleci/BUNDLE_UPDATE_NOTE.md` over `CIRCLECI_BUNDLE_UPDATE_NOTE.md`.
 
 ### Run on GitHub Actions
+
+> [!WARNING]
+> GitHub Actions are NOT officially supported. This is just a tip.
+
 Configure your `.github/workflows/bundle-update-pr.yml` to run circleci-bundle-update-pr, for example:
 
 ```yaml
