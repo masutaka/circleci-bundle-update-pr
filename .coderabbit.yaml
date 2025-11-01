@@ -1,0 +1,4 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# Complete reference: https://docs.coderabbit.ai/reference/configuration
+
+language: "en-US"
