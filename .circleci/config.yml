@@ -8,7 +8,7 @@ executors:
     parameters:
       ruby_version:
         type: enum
-        enum: ["3.0", "3.1", "3.2", "3.3", "3.4"]
+        enum: ["3.0", "3.1", "3.2", "3.3", "3.4", "4.0"]
     docker:
       - image: cimg/ruby:<< parameters.ruby_version >>
     working_directory: ~/repo
@@ -23,7 +23,7 @@ commands:
     parameters:
       ruby_version:
         type: enum
-        enum: ["3.0", "3.1", "3.2", "3.3", "3.4"]
+        enum: ["3.0", "3.1", "3.2", "3.3", "3.4", "4.0"]
     steps:
       - restore_cache:
           name: Restore bundle cache
@@ -34,7 +34,7 @@ commands:
     parameters:
       ruby_version:
         type: enum
-        enum: ["3.0", "3.1", "3.2", "3.3", "3.4"]
+        enum: ["3.0", "3.1", "3.2", "3.3", "3.4", "4.0"]
     steps:
       - save_cache:
           name: Save bundle cache
@@ -47,7 +47,7 @@ jobs:
     parameters:
       ruby_version:
         type: enum
-        enum: ["3.0", "3.1", "3.2", "3.3", "3.4"]
+        enum: ["3.0", "3.1", "3.2", "3.3", "3.4", "4.0"]
     executor:
       name: default
       ruby_version: << parameters.ruby_version >>
@@ -70,12 +70,12 @@ jobs:
   continuous_bundle_update:
     executor:
       name: default
-      ruby_version: "3.4"
+      ruby_version: "4.0"
     steps:
       - setup_requirements
       - checkout
       - restore_bundle_cache:
-          ruby_version: "3.4"
+          ruby_version: "4.0"
       - run:
           name: Install edge circleci-bundle-update-pr
           command: |
@@ -105,6 +105,9 @@ workflows:
       - build:
           name: ruby-3.4
           ruby_version: "3.4"
+      - build:
+          name: ruby-4.0
+          ruby_version: "4.0"
   nightly:
     triggers:
       - schedule:
