@@ -90,8 +90,8 @@ module Circleci
         def self.need_to_commit?
           old_lockfile = File.read('Gemfile.lock')
 
-          unless system('bundle update && bundle update --ruby')
-            raise 'Unable to execute `bundle update && bundle update --ruby`'
+          unless system('bundle update --all && bundle update --ruby')
+            raise 'Unable to execute `bundle update --all && bundle update --ruby`'
           end
 
           new_lockfile = File.read('Gemfile.lock')
@@ -128,7 +128,7 @@ module Circleci
 
           commit = client.create_commit(
             repo_full_name,
-            '$ bundle update && bundle update --ruby',
+            '$ bundle update --all && bundle update --ruby',
             tree.sha,
             branch_ref.object.sha,
             author: {
