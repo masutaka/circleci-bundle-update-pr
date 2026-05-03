@@ -4,7 +4,7 @@ module Circleci
   module Bundle
     module Update
       module Pr
-        VERSION = '5.2.2'
+        VERSION = '5.2.3'
       end
     end
   end
