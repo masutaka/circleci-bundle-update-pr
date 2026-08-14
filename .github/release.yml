@@ -1,0 +1,24 @@
+changelog:
+  exclude:
+    labels:
+      - tagpr
+  categories:
+    - title: "Breaking Changes :hammer_and_wrench:"
+      labels:
+        - breaking-change
+    - title: "New Features :tada:"
+      labels:
+        - enhancement
+    - title: "Fix bug :bug:"
+      labels:
+        - bug
+    - title: "Maintenance :technologist:"
+      labels:
+        - dependencies
+        - maintenance
+    - title: "Documentation :memo:"
+      labels:
+        - documentation
+    - title: "Other Changes"
+      labels:
+        - "*"
