@@ -1,0 +1,7 @@
+# zizmor - https://github.com/zizmorcore/zizmor
+
+rules:
+  unpinned-uses:
+    config:
+      policies:
+        masutaka/actions/*: ref-pin

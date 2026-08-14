@@ -1,12 +1,14 @@
 # Circleci::Bundle::Update::Pr
 
 [![CircleCI Status](https://img.shields.io/circleci/build/github/masutaka/circleci-bundle-update-pr/main?style=flat-square&logo=circieci&label=CircleCI)][circleci]
-[![CodeQL Status](https://img.shields.io/github/actions/workflow/status/masutaka/circleci-bundle-update-pr/github-code-scanning%2Fcodeql?branch=main&style=flat-square&logo=githubactions&label=CodeQL)][codeql]
+[![CI](https://github.com/masutaka/circleci-bundle-update-pr/actions/workflows/ci.yml/badge.svg?branch=main)][ci]
+[![Schedule](https://github.com/masutaka/circleci-bundle-update-pr/actions/workflows/schedule.yml/badge.svg?branch=main)][schedule]
 [![Gem Version](https://img.shields.io/gem/v/circleci-bundle-update-pr?style=flat-square&logo=rubygems&label=Gem)][gem]
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)][deepwiki]
 
 [circleci]: https://app.circleci.com/pipelines/github/masutaka/circleci-bundle-update-pr?branch=main
-[codeql]: https://github.com/masutaka/circleci-bundle-update-pr/actions/workflows/github-code-scanning/codeql?query=branch%3Amain
+[ci]: https://github.com/masutaka/circleci-bundle-update-pr/actions/workflows/ci.yml?query=branch%3Amain
+[schedule]: https://github.com/masutaka/circleci-bundle-update-pr/actions/workflows/schedule.yml?query=branch%3Amain
 [gem]: https://rubygems.org/gems/circleci-bundle-update-pr
 [deepwiki]: https://deepwiki.com/masutaka/circleci-bundle-update-pr
 
