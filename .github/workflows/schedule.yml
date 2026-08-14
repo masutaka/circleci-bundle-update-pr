@@ -1,0 +1,27 @@
+name: Schedule
+
+on:
+  schedule:
+    - cron: "00 10 * * 5" # every friday 19:00 JST
+
+jobs:
+  codeql:
+    strategy:
+      matrix:
+        language: [actions, ruby]
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+    uses: masutaka/actions/.github/workflows/codeql_core.yml@main
+    with:
+      language: ${{ matrix.language }}
+  pushover:
+    name: pushover if failure
+    if: github.ref_name == github.event.repository.default_branch && failure()
+    needs: codeql
+    uses: masutaka/actions/.github/workflows/pushover.yml@main
+    permissions: {}
+    secrets:
+      PUSHOVER_API_KEY: ${{ secrets.PUSHOVER_API_KEY }}
+      PUSHOVER_USER_KEY: ${{ secrets.PUSHOVER_USER_KEY }}

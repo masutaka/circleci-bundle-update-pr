@@ -1,0 +1,8 @@
+# actionlint - https://github.com/rhysd/actionlint/blob/main/docs/config.md
+
+paths:
+  .github/workflows/release.yml:
+    ignore:
+      # concurrency.queue is a valid key added in 2026-05, but actionlint 1.7.12 does not know it yet.
+      # https://github.blog/changelog/2026-05-07-github-actions-concurrency-groups-now-allow-larger-queues/
+      - 'unexpected key "queue" for "concurrency" section'

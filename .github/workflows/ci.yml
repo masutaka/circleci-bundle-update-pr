@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  gh_action_lint:
+    uses: masutaka/actions/.github/workflows/gh_action_lint.yml@main
+    permissions:
+      contents: read
+  codeql:
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+      security-events: write
+    uses: masutaka/actions/.github/workflows/codeql.yml@main
+  pushover:
+    name: pushover if failure
+    if: github.ref_name == github.event.repository.default_branch && failure()
+    needs: [gh_action_lint, codeql]
+    uses: masutaka/actions/.github/workflows/pushover.yml@main
+    permissions: {}
+    secrets:
+      PUSHOVER_API_KEY: ${{ secrets.PUSHOVER_API_KEY }}
+      PUSHOVER_USER_KEY: ${{ secrets.PUSHOVER_USER_KEY }}

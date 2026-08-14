@@ -1,0 +1,6 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/suzuki-shunsuke/ghalint/refs/heads/main/json-schema/ghalint.json
+# ghalint - https://github.com/suzuki-shunsuke/ghalint
+
+excludes:
+  - policy_name: action_ref_should_be_full_length_commit_sha
+    action_name: masutaka/actions/.github/workflows/*.yml
