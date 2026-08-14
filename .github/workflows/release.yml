@@ -1,0 +1,76 @@
+name: Release
+
+on:
+  status: {}
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  tagpr:
+    # Only run when the newest Ruby job on main succeeds. CircleCI reports one
+    # commit status per job, so waiting for a single job keeps this to one run.
+    # (1) Create a release pull request.
+    # (2) If the pull request already exists, update it.
+    # (3) If the pull request has been merged, create a new git tag.
+    if: >-
+      github.event.state == 'success' &&
+      github.event.context == 'ci/circleci: ruby-4.0' &&
+      contains(github.event.branches.*.name, 'main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
+        with:
+          app-id: ${{ vars.CI_APP_ID }}
+          private-key: ${{ secrets.CI_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          token: ${{ steps.app-token.outputs.token }}
+      # Required to run `bundle lock` via postVersionCommand in .tagpr
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: ruby
+      - id: run-tagpr
+        uses: Songmu/tagpr@d1b8138b7a31075141b6cd64103de9485ced7ac9 # v1.20.1
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+    outputs:
+      tagpr-tag: ${{ steps.run-tagpr.outputs.tag }}
+
+  release:
+    # When (3) above occurs, tagpr-tag is non-empty, so push the gem.
+    if: needs.tagpr.outputs.tagpr-tag != ''
+    needs: [tagpr]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read # tagpr has already created the tag, so `rake release` does not push it
+      id-token: write # Mandatory for trusted publishing
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          ref: ${{ needs.tagpr.outputs.tagpr-tag }}
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
+        with:
+          ruby-version: ruby
+          bundler-cache: true
+      # Runs `bundle exec rake release` internally
+      - uses: rubygems/release-gem@052cc82692552de3ef2b81fd670e41d13cba8092 # v1.4.0
+
+  pushover:
+    name: pushover if failure
+    if: failure()
+    needs: [release]
+    uses: masutaka/actions/.github/workflows/pushover.yml@main
+    permissions: {}
+    secrets:
+      PUSHOVER_API_KEY: ${{ secrets.PUSHOVER_API_KEY }}
+      PUSHOVER_USER_KEY: ${{ secrets.PUSHOVER_USER_KEY }}
