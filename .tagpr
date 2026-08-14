@@ -1,0 +1,10 @@
+# config file for the tagpr in git config format
+# https://github.com/Songmu/tagpr
+[tagpr]
+	vPrefix = true
+	releaseBranch = main
+	versionFile = lib/circleci/bundle/update/pr/version.rb
+	release = draft
+	# Rewriting versionFile alone leaves the PATH section of Gemfile.lock stale,
+	# which makes `rake release` in the release job fail at release:guard_clean.
+	postVersionCommand = bundle lock
