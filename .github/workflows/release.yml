@@ -5,6 +5,9 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}
+  # A status event creates a workflow run even when every job is skipped, so the
+  # default `queue: single` lets those runs cancel the pending one that matters.
+  queue: max
 
 jobs:
   tagpr:
