@@ -64,10 +64,11 @@ jobs:
       - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1.321.0
         with:
           ruby-version: ruby
-          # The release job is the only one that writes a bundler cache on GitHub
-          # Actions -- the test matrix lives on CircleCI -- so there is no cache
-          # entry an attacker could poison.
-          bundler-cache: true # zizmor: ignore[cache-poisoning]
+      # `status` is not a trusted trigger, so this run only gets a read-only cache
+      # token and `bundler-cache: true` fails to save. Nothing writes a bundler
+      # cache here anyway -- the test matrix lives on CircleCI -- so just install.
+      # https://github.blog/changelog/2026-06-26-read-only-actions-cache-for-untrusted-triggers/
+      - run: bundle install --jobs 4
       # Runs `bundle exec rake release` internally
       - uses: rubygems/release-gem@7f9650160c1a4e7989fdc9855807bdbd421d8b6b # v1.4.1
 
