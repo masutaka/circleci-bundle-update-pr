@@ -69,7 +69,7 @@ jobs:
           # entry an attacker could poison.
           bundler-cache: true # zizmor: ignore[cache-poisoning]
       # Runs `bundle exec rake release` internally
-      - uses: rubygems/release-gem@052cc82692552de3ef2b81fd670e41d13cba8092 # v1.4.0
+      - uses: rubygems/release-gem@7f9650160c1a4e7989fdc9855807bdbd421d8b6b # v1.4.1
 
   pushover:
     name: pushover if failure
