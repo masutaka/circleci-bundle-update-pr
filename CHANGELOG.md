@@ -1,5 +1,11 @@
 # Changelog
 
+## [v5.2.8](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.7...v5.2.8) - 2026-09-01
+
+### Maintenance :technologist:
+- Fix two rough edges in the tagpr release flow by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/275
+- bundle update at 2026-09-01 19:11:22 JST by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/272
+
 ## [v5.2.7](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.6...v5.2.7) - 2026-09-01
 
 ### Maintenance :technologist:
