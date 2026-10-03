@@ -1,5 +1,15 @@
 # Changelog
 
+## [v5.2.8](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.7...v5.2.8) - 2026-10-03
+
+### Maintenance :technologist:
+- Fix two rough edges in the tagpr release flow by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/275
+- bundle update at 2026-09-01 19:11:22 JST by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/272
+- chore: Remove actionlint config superseded by masutaka/actions by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/277
+- chore: Replace deprecated app-id input of create-github-app-token with client-id by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/278
+- chore(deps): Bump ruby/setup-ruby from 1.321.0 to 1.326.0 by @dependabot[bot] in https://github.com/masutaka/circleci-bundle-update-pr/pull/281
+- chore(deps): Bump Songmu/tagpr from 1.20.2 to 1.21.0 by @dependabot[bot] in https://github.com/masutaka/circleci-bundle-update-pr/pull/280
+
 ## [v5.2.7](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.6...v5.2.7) - 2026-09-01
 
 ### Maintenance :technologist:
