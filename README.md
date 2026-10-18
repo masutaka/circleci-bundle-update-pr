@@ -12,6 +12,11 @@
 [gem]: https://rubygems.org/gems/circleci-bundle-update-pr
 [deepwiki]: https://deepwiki.com/masutaka/circleci-bundle-update-pr
 
+<p>
+  <a href="./README.md"><img alt="README in English" src="https://img.shields.io/badge/English-d9d9d9"></a>
+  <a href="./README_ja.md"><img alt="日本語のREADME" src="https://img.shields.io/badge/日本語-d9d9d9"></a>
+</p>
+
 `circleci-bundle-update-pr` is an automation script for continuous bundle update and for sending a pull request using [`Scheduling a Workflow of CircleCI`](https://circleci.com/docs/2.0/workflows/#scheduling-a-workflow).
 
 By requesting a nightly build to CircleCI with an environment variable configured in `circle.yml` or `.circleci/config.yml` to execute this script, bundle update is invoked, then commit changes and send a pull request to GitHub repository if there some changes exist.
@@ -28,15 +33,19 @@ The application on which you want to run continuous bundle update must be config
 
 ## Usage
 
-### Setting GitHub personal access token to CircleCI
+### Setting GitHub fine-grained personal access token to CircleCI
 
-GitHub personal access token is required for sending pull requests to your repository.
+GitHub fine-grained personal access token is required for sending pull requests to your repository.
 
-1. Go to [your account's settings page](https://github.com/settings/tokens) and generate a personal access token with "repo" scope
+1. Go to [your account's settings page](https://github.com/settings/personal-access-tokens/new) and generate a fine-grained personal access token
+    * Repository access: Select your repository
+    * Repository permissions:
+        * Contents: Read and write
+        * Pull requests: Read and write
 2. On CircleCI dashboard, go to your application's "Project Settings" -> "Environment Variables"
-3. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token
+3. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub fine-grained personal access token
     * If use GitHub Enterprise
-        * `ENTERPRISE_OCTOKIT_ACCESS_TOKEN` with your GitHub Enterprise personal access token
+        * `ENTERPRISE_OCTOKIT_ACCESS_TOKEN` with your GitHub Enterprise fine-grained personal access token
         * `ENTERPRISE_OCTOKIT_API_ENDPOINT` with your GitHub Enterprise api endpoint (e.g. https://www.example.com/api/v3)
 
 ### Configure circle.yml
@@ -50,19 +59,12 @@ jobs:
     # snip
   continuous_bundle_update:
     docker:
-      - image: ruby:3.0.1-alpine
-    working_directory: /work
+      - image: cimg/ruby:4.0
+    working_directory: ~/repo
     steps:
       - run:
-          name: Install System Dependencies
-          command: |
-            # See also https://circleci.com/docs/2.0/custom-images/#required-tools-for-primary-containers
-            apk add --update --no-cache git openssh-client tar gzip ca-certificates \
-              tzdata
-            gem install -N bundler
-      - run:
           name: Set timezone to Asia/Tokyo
-          command: cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+          command: sudo cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
       - checkout
       - restore_cache:
           name: Restore bundler cache
@@ -72,7 +74,7 @@ jobs:
       - run:
           name: Setup requirements for continuous bundle update
           command: gem install -N circleci-bundle-update-pr
-      - deploy:
+      - run:
           name: Continuous bundle update
           command: circleci-bundle-update-pr <username> <email>
 
@@ -175,13 +177,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.4'
+          ruby-version: '4.0'
 
       - name: Install dependencies
         run: |
