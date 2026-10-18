@@ -59,19 +59,12 @@ jobs:
     # snip
   continuous_bundle_update:
     docker:
-      - image: ruby:3.0.1-alpine
-    working_directory: /work
+      - image: cimg/ruby:4.0
+    working_directory: ~/repo
     steps:
       - run:
-          name: Install System Dependencies
-          command: |
-            # See also https://circleci.com/docs/2.0/custom-images/#required-tools-for-primary-containers
-            apk add --update --no-cache git openssh-client tar gzip ca-certificates \
-              tzdata
-            gem install -N bundler
-      - run:
           name: Set timezone to Asia/Tokyo
-          command: cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+          command: sudo cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
       - checkout
       - restore_cache:
           name: Restore bundler cache
@@ -81,7 +74,7 @@ jobs:
       - run:
           name: Setup requirements for continuous bundle update
           command: gem install -N circleci-bundle-update-pr
-      - deploy:
+      - run:
           name: Continuous bundle update
           command: circleci-bundle-update-pr <username> <email>
 
