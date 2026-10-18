@@ -28,15 +28,19 @@ The application on which you want to run continuous bundle update must be config
 
 ## Usage
 
-### Setting GitHub personal access token to CircleCI
+### Setting GitHub fine-grained personal access token to CircleCI
 
-GitHub personal access token is required for sending pull requests to your repository.
+GitHub fine-grained personal access token is required for sending pull requests to your repository.
 
-1. Go to [your account's settings page](https://github.com/settings/tokens) and generate a personal access token with "repo" scope
+1. Go to [your account's settings page](https://github.com/settings/personal-access-tokens/new) and generate a fine-grained personal access token
+    * Repository access: Select your repository
+    * Repository permissions:
+        * Contents: Read and write
+        * Pull requests: Read and write
 2. On CircleCI dashboard, go to your application's "Project Settings" -> "Environment Variables"
-3. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub personal access token
+3. Add an environment variable `GITHUB_ACCESS_TOKEN` with your GitHub fine-grained personal access token
     * If use GitHub Enterprise
-        * `ENTERPRISE_OCTOKIT_ACCESS_TOKEN` with your GitHub Enterprise personal access token
+        * `ENTERPRISE_OCTOKIT_ACCESS_TOKEN` with your GitHub Enterprise fine-grained personal access token
         * `ENTERPRISE_OCTOKIT_API_ENDPOINT` with your GitHub Enterprise api endpoint (e.g. https://www.example.com/api/v3)
 
 ### Configure circle.yml
@@ -175,13 +179,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+      pull-requests: write
+
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.4'
+          ruby-version: '4.0'
 
       - name: Install dependencies
         run: |
