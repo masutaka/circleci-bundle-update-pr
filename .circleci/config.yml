@@ -81,7 +81,7 @@ jobs:
           command: |
             gem install -N specific_install
             gem specific_install https://github.com/masutaka/circleci-bundle-update-pr.git
-      - deploy:
+      - run:
           name: Run circleci-bundle-update-pr
           command: circleci-bundle-update-pr CircleCI circleci@example.com $CIRCLE_BRANCH -d -l dependencies,ruby
       - pushover/notify-on-failure
