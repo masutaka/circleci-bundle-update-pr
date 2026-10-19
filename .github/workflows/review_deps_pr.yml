@@ -20,5 +20,6 @@ jobs:
       pull-requests: write
     with:
       pr-number: ${{ inputs.pr-number || github.event.pull_request.number }}
+      language: en
     secrets:
       REVIEW_DEPS_PR_APP_PRIVATE_KEY: ${{ secrets.REVIEW_DEPS_PR_APP_PRIVATE_KEY }}
