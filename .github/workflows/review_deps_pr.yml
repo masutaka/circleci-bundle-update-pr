@@ -21,4 +21,4 @@ jobs:
     with:
       pr-number: ${{ inputs.pr-number || github.event.pull_request.number }}
     secrets:
-      DEPENDABOT_ALERTS_APP_PRIVATE_KEY: ${{ secrets.DEPENDABOT_ALERTS_APP_PRIVATE_KEY }}
+      REVIEW_DEPS_PR_APP_PRIVATE_KEY: ${{ secrets.REVIEW_DEPS_PR_APP_PRIVATE_KEY }}
