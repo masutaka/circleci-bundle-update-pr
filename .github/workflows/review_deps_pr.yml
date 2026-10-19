@@ -1,0 +1,24 @@
+name: Review deps PR
+
+on:
+  pull_request:
+    types: [opened]
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        description: Number of the Dependabot PR to review
+        required: true
+        type: number
+
+jobs:
+  review_deps_pr:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.user.login == 'dependabot[bot]'
+    uses: masutaka/actions/.github/workflows/review_deps_pr.yml@main
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    with:
+      pr-number: ${{ inputs.pr-number || github.event.pull_request.number }}
+    secrets:
+      DEPENDABOT_ALERTS_APP_PRIVATE_KEY: ${{ secrets.DEPENDABOT_ALERTS_APP_PRIVATE_KEY }}
