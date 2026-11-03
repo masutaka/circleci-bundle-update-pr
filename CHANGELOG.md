@@ -1,5 +1,19 @@
 # Changelog
 
+## [v5.2.9](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.8...v5.2.9) - 2026-11-03
+
+### Maintenance :technologist:
+- bundle update at 2026-10-01 19:11:28 JST by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/279
+- chore: Remove ghalint and zizmor configs now provided by masutaka/actions by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/283
+- docs: Switch to fine-grained PAT, refresh examples, and add Japanese README by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/284
+- chore: Grant permissions on the job so that later jobs do not inherit pull-requests: write by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/286
+- feat: Review dependency update PRs automatically with Claude to make them easier to check by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/285
+- refactor: Follow the secret rename in the reusable workflow by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/287
+- feat: Write the dependency update PR review in English by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/288
+- chore(deps): Bump ruby/setup-ruby from 1.326.0 to 1.335.0 by @dependabot[bot] in https://github.com/masutaka/circleci-bundle-update-pr/pull/289
+- chore(deps): Bump actions/create-github-app-token from 3.2.0 to 3.3.0 by @dependabot[bot] in https://github.com/masutaka/circleci-bundle-update-pr/pull/291
+- chore(deps): Bump Songmu/tagpr from 1.21.0 to 1.21.4 by @dependabot[bot] in https://github.com/masutaka/circleci-bundle-update-pr/pull/290
+
 ## [v5.2.8](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.7...v5.2.8) - 2026-10-03
 
 ### Maintenance :technologist:
