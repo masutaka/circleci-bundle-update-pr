@@ -1,5 +1,10 @@
 # Changelog
 
+## [v5.2.10](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.9...v5.2.10) - 2026-11-03
+
+### Maintenance :technologist:
+- bundle update at 2026-11-01 19:11:30 JST by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/292
+
 ## [v5.2.9](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.8...v5.2.9) - 2026-11-03
 
 ### Maintenance :technologist:
