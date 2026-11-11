@@ -5,8 +5,8 @@ updates:
     directory: "/"
     open-pull-requests-limit: 99
     schedule:
-      interval: "monthly"
-      time: "19:00"
+      interval: "cron"
+      cronjob: "0 19 1,16 * *"
       timezone: "Asia/Tokyo"
     cooldown:
       default-days: 7
