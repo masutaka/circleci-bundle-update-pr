@@ -37,7 +37,7 @@ jobs:
           persist-credentials: false
           token: ${{ steps.app-token.outputs.token }}
       # Required to run `bundle lock` via postVersionCommand in .tagpr
-      - uses: ruby/setup-ruby@v1.335.0
+      - uses: ruby/setup-ruby@v1.336.0
         with:
           ruby-version: ruby
       - id: run-tagpr
@@ -61,7 +61,7 @@ jobs:
         with:
           persist-credentials: false
           ref: ${{ needs.tagpr.outputs.tagpr-tag }}
-      - uses: ruby/setup-ruby@v1.335.0
+      - uses: ruby/setup-ruby@v1.336.0
         with:
           ruby-version: ruby
       # `status` is not a trusted trigger, so this run only gets a read-only cache
