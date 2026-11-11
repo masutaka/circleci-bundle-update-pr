@@ -11,7 +11,7 @@ workflows:
         - 'actions/create-github-app-token@v3.3.0'
         - 'ruby/setup-ruby@v1.335.0'
         - 'rubygems/release-gem@v1.4.1'
-        - 'songmu/tagpr@v1.21.4'
+        - 'songmu/tagpr@v1.22.0'
     '.github/workflows/review_deps_pr.yml': []
     '.github/workflows/schedule.yml': []
 dependencies:
@@ -42,8 +42,8 @@ dependencies:
         repo_id: 731435765
         uses:
             - 'rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a'
-    'songmu/tagpr@v1.21.4':
-        ref: 'v1.21.4'
-        commit: 'sha1-e1250d6c84e4425db82b5e90549d62dfe23e9ebe'
+    'songmu/tagpr@v1.22.0':
+        ref: 'v1.22.0'
+        commit: 'sha1-047aec4b6c0ce166f52958b5a97f5a3d927fd65b'
         owner_id: 177122
         repo_id: 524603982
