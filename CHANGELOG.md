@@ -1,5 +1,14 @@
 # Changelog
 
+## [v5.2.10](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.9...v5.2.10) - 2026-11-11
+
+### Maintenance :technologist:
+- bundle update at 2026-11-01 19:11:30 JST by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/292
+- chore: Introduce actions.lock to pin transitive dependencies to commits by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/294
+- chore: Run dependency updates on the 1st and 16th to avoid piling up monthly updates by @masutaka in https://github.com/masutaka/circleci-bundle-update-pr/pull/295
+- chore(deps): Bump Songmu/tagpr from 1.21.4 to 1.22.0 by @dependabot[bot] in https://github.com/masutaka/circleci-bundle-update-pr/pull/296
+- chore(deps): Bump ruby/setup-ruby from 1.335.0 to 1.336.0 by @dependabot[bot] in https://github.com/masutaka/circleci-bundle-update-pr/pull/297
+
 ## [v5.2.9](https://github.com/masutaka/circleci-bundle-update-pr/compare/v5.2.8...v5.2.9) - 2026-11-03
 
 ### Maintenance :technologist:
