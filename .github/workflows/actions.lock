@@ -9,7 +9,7 @@ workflows:
     '.github/workflows/release.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.3.0'
-        - 'ruby/setup-ruby@v1.335.0'
+        - 'ruby/setup-ruby@v1.336.0'
         - 'rubygems/release-gem@v1.4.1'
         - 'songmu/tagpr@v1.22.0'
     '.github/workflows/review_deps_pr.yml': []
@@ -25,9 +25,9 @@ dependencies:
         commit: 'sha1-64ab729a6294000f5aa4a4bc0b73d1f32bc45510'
         owner_id: 44036562
         repo_id: 642580244
-    'ruby/setup-ruby@v1.335.0':
-        ref: 'v1.335.0'
-        commit: 'sha1-7f797815d8adceb1c412e7abefdd1ab4abc47a5f'
+    'ruby/setup-ruby@v1.336.0':
+        ref: 'v1.336.0'
+        commit: 'sha1-de492cf36cbab201753d720ce4f4e336cd688c94'
         owner_id: 210414
         repo_id: 231208785
     'rubygems/configure-rubygems-credentials@dc5a8d8553e6ee01fc26761a49e99e733d17954a':
